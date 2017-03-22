@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+import '../less/main.less';
 
 ReactDOM.render(
-  <App />,
+  <h1>Helloooooooooooooo, world!</h1>,
   document.getElementById('root')
 );
