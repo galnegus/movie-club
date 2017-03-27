@@ -1,9 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Start} from './components/start.jsx';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {Sidebar} from './components/sidebar.jsx';
+import {Discussion} from './components/discussion.jsx';
 import '../less/main.less';
 
+function CoolRouter() {
+  return (
+    <Router>
+      <div>
+        <Sidebar />
+        <Route path="/" component={Discussion} />
+      </div>
+    </Router>
+  );
+}
+
 ReactDOM.render(
-  <Start />,
+  <CoolRouter />,
   document.getElementById('root')
 );
