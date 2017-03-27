@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Start} from './components/start.jsx';
 import '../less/main.less';
 
 ReactDOM.render(
-  <h1>Helloooooooooooooo, world!</h1>,
+  <Start />,
   document.getElementById('root')
 );
