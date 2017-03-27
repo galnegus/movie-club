@@ -4,4 +4,4 @@ hello
 
 
 mockup:
-https://www.dropbox.com/s/v7wqvreunyt5lbr/movie-club-mockup.png?dl=0
+https://www.dropbox.com/s/yw1llolx12rfll6/mockups.pdf?dl=0
