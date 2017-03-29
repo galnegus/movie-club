@@ -4,8 +4,8 @@ export class Schedule extends Component{
   render(){
 	return(
 	  <div>
-		<Week />
-		<Week />
+  		<Week />
+  		<Week />
 	  </div>
 	);
   }
@@ -15,7 +15,7 @@ class Week extends Component{
   render(){
 	return(
 	  <div>
-		<div> week 51 </div>
+		  <div> week 51 </div>
 	  </div>
 	);
   }
