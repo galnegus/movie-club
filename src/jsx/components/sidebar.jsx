@@ -5,8 +5,8 @@ export class Sidebar extends Component {
   constructor() {
     super();
     this.state = {
-        // user: null,
-        user: "admin",
+        user: null,
+        // user: "admin",
         // user: "member",
     };
   }
@@ -14,10 +14,7 @@ export class Sidebar extends Component {
   render() {
   	return (
   	  <div className="sidebar">
-  	  	<Login user={this.state.user} />
-        <ul>
-          <li><Link to="/">Home</Link></li>
-        </ul>
+        <Login user={this.state.user} />
         <div>
           <Watched />
         </div>
@@ -32,7 +29,8 @@ class Login extends Component{
     if(!this.props.user){
       return(
         <div>
-          <h1>Login</h1>
+          <h3>Login</h3>
+          <Link to="/">Home</Link>
           <input type="text" placeholder="username"></input>
           <input type="text" placeholder="password"></input>
           <button type="submit">Login</button>
@@ -41,19 +39,19 @@ class Login extends Component{
     } else if(this.props.user === "admin") {
       return(
         <div>
-          <ul>
-            <li><Link to="/addmovie">Add movie</Link></li>
-            <li><Link to="/schedule">Schedule</Link></li>
-            <li>Logout</li>
-          </ul>
+            <div> Cool Guy </div>
+            <div><Link to="/">Home</Link></div>
+            <div><Link to="/addmovie">Add movie</Link></div>
+            <div><Link to="/schedule">Schedule</Link></div>
+            <div>Logout</div>
         </div>
       );
     } else if(this.props.user === "member") {
       return(
         <div>
-          <ul>
-            <li>Logout</li>
-          </ul>
+          <div> Cool Guy </div>
+          <div><Link to="/">Home</Link></div>
+          <div> Logout </div>
         </div>
       );
     }
@@ -64,7 +62,10 @@ class Watched extends Component{
   render(){
     return(
       <div>
-        <h2>Last weeks</h2>
+        <h3>Last weeks</h3>
+        <p> week 47 </p>
+        <p> week 46 </p>
+        <p> week 45 </p>
       </div>
     );
   }
