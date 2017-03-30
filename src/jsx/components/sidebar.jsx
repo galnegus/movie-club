@@ -5,8 +5,8 @@ export class Sidebar extends Component {
   constructor() {
     super();
     this.state = {
-        // user: null,
-        user: "admin",
+        user: null,
+        // user: "admin",
         // user: "member",
     };
   }
@@ -14,9 +14,6 @@ export class Sidebar extends Component {
   render() {
   	return (
   	  <div className="sidebar">
-        <ul>
-          <li><Link to="/">Home</Link></li>
-        </ul>
         <Login user={this.state.user} />
         <div>
           <Watched />
@@ -32,7 +29,8 @@ class Login extends Component{
     if(!this.props.user){
       return(
         <div>
-          <h1>Login</h1>
+          <h3>Login</h3>
+          <Link to="/">Home</Link>
           <input type="text" placeholder="username"></input>
           <input type="text" placeholder="password"></input>
           <button type="submit">Login</button>
@@ -41,17 +39,19 @@ class Login extends Component{
     } else if(this.props.user === "admin") {
       return(
         <div>
-            <p> Cool Guy </p>
-            <p><Link to="/addmovie">Add movie</Link></p>
-            <p><Link to="/schedule">Schedule</Link></p>
-            <p>Logout</p>
+            <div> Cool Guy </div>
+            <div><Link to="/">Home</Link></div>
+            <div><Link to="/addmovie">Add movie</Link></div>
+            <div><Link to="/schedule">Schedule</Link></div>
+            <div>Logout</div>
         </div>
       );
     } else if(this.props.user === "member") {
       return(
         <div>
-          <p> Cool Guy </p>
-          <p> Logout </p>
+          <div> Cool Guy </div>
+          <div><Link to="/">Home</Link></div>
+          <div> Logout </div>
         </div>
       );
     }
