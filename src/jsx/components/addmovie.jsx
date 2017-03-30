@@ -480,7 +480,7 @@ class MovieTable extends Component{
     var rows = [];
     if(this.props.movies){
       this.props.movies.forEach( movie => {
-        // console.log("movie = ", movie)
+        // console.log("movie = ", movie.poster_path)
         rows.push( <MovieRow id={movie.id} 
                               key={movie.id}
                               title={movie.title}
@@ -504,11 +504,12 @@ class MovieTable extends Component{
 
 class MovieRow extends Component{
   render(){
+    const src = "http://image.tmdb.org/t/p/w185" + this.props.poster_path;
   	return(
   	  <div>
         <table >
           <tr>
-            <th rowSpan="2"><img src={this.props.poster_path}></img></th>
+            <th rowSpan="2"><img src={src}></img></th>
             <th >{this.props.title}</th>
             <th >{this.props.release_date}</th>
             <th rowSpan="2"><button type="submit"> Add </button></th>
