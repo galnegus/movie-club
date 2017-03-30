@@ -31,9 +31,10 @@ class MovieInfo extends Component {
     return (
       <div className='movie-info'>
         <img src={this.props.info.poster_path} />
-        <span>* * * * *</span>
-        <h4>{this.props.info.title + ' (' + this.datestring2year(this.props.info.release_date) + ')'}</h4>
-        <p>{this.props.info.overview}</p>
+        <div className='movie-info__content'>
+          <h4>{this.props.info.title + ' (' + this.datestring2year(this.props.info.release_date) + ')'}</h4>
+          <p>{this.props.info.overview}</p>
+        </div>
       </div>
     );
   }
@@ -45,19 +46,19 @@ class Comments extends Component {
       {
         author: 'AGoodBoy',
         date: '2013/05/12',
-        comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis porttitor ipsum. Pellentesque vel nulla ut nunc rhoncus accumsan. Nunc eleifend leo vitae nibh mattis, et porta elit consequat. Proin non arcu dui. Nulla a metus luctus, rhoncus odio in, commodo purus. Nulla consectetur venenatis pellentesque. Proin eu augue bibendum, dictum justo non, faucibus dui. Orci varius natoque penatibus et.',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis porttitor ipsum. Pellentesque vel nulla ut nunc rhoncus accumsan. Nunc eleifend leo vitae nibh mattis, et porta elit consequat. Proin non arcu dui. Nulla a metus luctus, rhoncus odio in, commodo purus. Nulla consectetur venenatis pellentesque. Proin eu augue bibendum, dictum justo non, faucibus dui. Orci varius natoque penatibus et.',
         key: 0
       }, {
         author: 'ABadBoy',
         date: '2002/11/22',
-        comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pharetra lectus id efficitur facilisis. Sed bibendum risus nibh. Suspendisse eleifend neque sagittis tortor fermentum commodo. Cras faucibus in lacus ac tincidunt. Morbi eget ipsum vehicula, eleifend nisl a, suscipit arcu. Nullam faucibus nulla iaculis nunc dapibus, eu dapibus ex tempus. Sed congue eget metus nec ornare. Morbi efficitur ipsum in.',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pharetra lectus id efficitur facilisis. Sed bibendum risus nibh. Suspendisse eleifend neque sagittis tortor fermentum commodo. Cras faucibus in lacus ac tincidunt. Morbi eget ipsum vehicula, eleifend nisl a, suscipit arcu. Nullam faucibus nulla iaculis nunc dapibus, eu dapibus ex tempus. Sed congue eget metus nec ornare. Morbi efficitur ipsum in.',
         key: 1
       }
     ];
 
     return (
       <div>
-        {tempComments.map((comment) => <Comment commentData={comment} key={comment.key} />)}
+        {tempComments.map((comment) => (<Comment commentData={comment} key={comment.key} />))}
       </div>
     );
   }
@@ -66,10 +67,11 @@ class Comments extends Component {
 class Comment extends Component {
   render() {
     return (
-      <div>
-        <span>{this.props.commentData.author}</span>
-        <span>{this.props.commentData.date}</span>
-        <p>{this.props.commentData.comment}</p>
+      <div className='comment'>
+        <strong className='comment__author'>{this.props.commentData.author}</strong>
+        <span className='comment__date'>{this.props.commentData.date}</span>
+        <p className='comment__text'>{this.props.commentData.text}</p>
+        <hr />
       </div>
     );
   }
@@ -78,10 +80,9 @@ class Comment extends Component {
 class AddComment extends Component {
   render() {
     return (
-      <div>
-        <h4>Add comment/review</h4>
-        <textarea />
-        <button type='button'>Submit</button>
+      <div className='add-comment'>
+        <input type='text' className='add-comment__input' />
+        <button className='add-comment__submit' type='button'>Submit</button>
       </div>
     );
   }

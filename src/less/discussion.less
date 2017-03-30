@@ -5,6 +5,10 @@
 
 .discussion__content {
   margin-left: 250px;
+  padding: 20px;
+  height: 100%;
+  position: relative;
+  box-sizing: border-box;
 }
 
 .movie-info {
@@ -14,9 +18,67 @@
   top: 0;
   bottom: 0;
   width: 250px;
+  #BoxShadowHelper(2);
 
   img {
     width: 250px;
     height: auto;
+  }
+}
+
+.movie-info__content {
+  padding: 10px;
+}
+
+.comment {
+}
+
+.comment__author {
+
+}
+
+.comment__date {
+  margin-left: 10px;
+  font-weight: 300;
+}
+
+@add-comment-button-width: 150px;
+
+.add-comment {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  margin: 10px;
+  padding: 5px;
+
+  display: flex;
+  #BoxShadowHelper(1);
+  border-radius: 3px;
+}
+
+.add-comment__input, .add-comment__submit {
+  background: #fff;
+  font-size: 1em;
+  padding: 0.5em;
+}
+
+.add-comment__input {
+  flex-grow: 1;
+  border: 1px solid #e6e6e6;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.add-comment__submit {
+  width: @add-comment-button-width;
+  border: 0;
+
+  &:active {
+    padding-top: 0.6em;
+    color: #404040;
   }
 }
