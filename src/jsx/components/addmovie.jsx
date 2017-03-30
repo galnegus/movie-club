@@ -511,6 +511,7 @@ class MovieRow extends Component{
             <th rowSpan="2"><img src={this.props.poster_path}></img></th>
             <th >{this.props.title}</th>
             <th >{this.props.release_date}</th>
+            <th rowSpan="2"><button type="submit"> Add </button></th>
           </tr>
           <tr>
             <th colSpan="2">{this.props.overview}</th>
