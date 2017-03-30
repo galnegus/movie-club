@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import {Sidebar} from './components/sidebar.jsx';
@@ -18,16 +17,14 @@ injectTapEventPlugin();
 function CoolRouter() {
   return (
     <Router>
-      <MuiThemeProvider>
-        <div>
-          <Sidebar />
-          <div className="content">
-            <Route exact path="/" component={Discussion} />
-            <Route path="/schedule" component={Schedule} />
-            <Route path="/addmovie" component={AddMovie} />
-          </div>
+      <div>
+        <Sidebar />
+        <div className="content">
+          <Route exact path="/" component={Discussion} />
+          <Route path="/schedule" component={Schedule} />
+          <Route path="/addmovie" component={AddMovie} />
         </div>
-      </MuiThemeProvider>
+      </div>
     </Router>
   );
 }

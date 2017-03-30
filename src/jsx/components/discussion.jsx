@@ -1,9 +1,4 @@
 import React, {Component} from 'react';
-import TextField from 'material-ui/TextField';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import ContentCreate from 'material-ui/svg-icons/content/create';
-import { Rating } from 'material-ui-rating'
 
 export class Discussion extends Component {
   render() {
@@ -36,12 +31,8 @@ class MovieInfo extends Component {
     return (
       <div className='movie-info'>
         <img src={this.props.info.poster_path} />
-        <Rating
-          value={3}
-          max={5}
-          onChange={(value) => console.log(`Rated with value ${value}`)}
-        />
-        <h3>{this.props.info.title + ' (' + this.datestring2year(this.props.info.release_date) + ')'}</h3>
+        <span>* * * * *</span>
+        <h4>{this.props.info.title + ' (' + this.datestring2year(this.props.info.release_date) + ')'}</h4>
         <p>{this.props.info.overview}</p>
       </div>
     );
@@ -89,14 +80,8 @@ class AddComment extends Component {
     return (
       <div>
         <h4>Add comment/review</h4>
-        <TextField
-          multiLine={true}
-          rows={2}
-          rowsMax={4}
-          floatingLabelText="Put the text here"
-          fullWidth={true}
-        />
-        <RaisedButton label="Submit" />
+        <textarea />
+        <button type='button'>Submit</button>
       </div>
     );
   }
