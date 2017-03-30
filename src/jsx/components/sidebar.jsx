@@ -42,8 +42,8 @@ class Login extends Component{
       return(
         <div>
             <p> Cool Guy </p>
-            <p><pnk to="/addmovie">Add movie</pnk></p>
-            <p><pnk to="/schedule">Schedule</pnk></p>
+            <p><Link to="/addmovie">Add movie</Link></p>
+            <p><Link to="/schedule">Schedule</Link></p>
             <p>Logout</p>
         </div>
       );
