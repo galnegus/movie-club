@@ -40,16 +40,10 @@ class Week extends Component{
 	render(){
 		return(
 			<div>
-				<table >
-					<tr>
-						<th rowSpan="2"><img src={this.props.poster}></img></th>
-						<th >Week:{this.props.weekNumber}</th>
-					</tr>
-					<tr>
-						<th > {this.props.title} ({this.props.year}) <font color='#FF7F50'> {this.props.currentWeek}</font></th>
-						<th colSpan="2">{this.props.overview}</th>
-					</tr>
-				</table>
+				<div><img src={this.props.poster}></img></div>
+				<div>Week:{this.props.weekNumber}</div>
+				<div> {this.props.title} ({this.props.year}) <font color='#FF7F50'> {this.props.currentWeek}</font></div>
+				<div>{this.props.overview}</div>
 			</div>
 		);
 	}

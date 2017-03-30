@@ -507,17 +507,13 @@ class MovieRow extends Component{
     const src = "http://image.tmdb.org/t/p/w185" + this.props.poster_path;
   	return(
   	  <div>
-        <table >
-          <tr>
-            <th rowSpan="2"><img src={src}></img></th>
-            <th >{this.props.title}</th>
-            <th >{this.props.release_date}</th>
-            <th rowSpan="2"><button type="submit"> Add </button></th>
-          </tr>
-          <tr>
-            <th colSpan="2">{this.props.overview}</th>
-          </tr>
-        </table>
+        <div>
+            <div><img src={src}></img></div>
+            <div>{this.props.title}</div>
+            <div>{this.props.release_date}</div>
+            <div><button type="submit"> Add </button></div>
+            <div>{this.props.overview}</div>
+        </div>
   	  </div>
   	);
   }
