@@ -14,10 +14,10 @@ export class Sidebar extends Component {
   render() {
   	return (
   	  <div className="sidebar">
-  	  	<Login user={this.state.user} />
         <ul>
           <li><Link to="/">Home</Link></li>
         </ul>
+        <Login user={this.state.user} />
         <div>
           <Watched />
         </div>
@@ -41,19 +41,17 @@ class Login extends Component{
     } else if(this.props.user === "admin") {
       return(
         <div>
-          <ul>
-            <li><Link to="/addmovie">Add movie</Link></li>
-            <li><Link to="/schedule">Schedule</Link></li>
-            <li>Logout</li>
-          </ul>
+            <p> Cool Guy </p>
+            <p><pnk to="/addmovie">Add movie</pnk></p>
+            <p><pnk to="/schedule">Schedule</pnk></p>
+            <p>Logout</p>
         </div>
       );
     } else if(this.props.user === "member") {
       return(
         <div>
-          <ul>
-            <li>Logout</li>
-          </ul>
+          <p> Cool Guy </p>
+          <p> Logout </p>
         </div>
       );
     }
@@ -64,7 +62,10 @@ class Watched extends Component{
   render(){
     return(
       <div>
-        <h2>Last weeks</h2>
+        <h3>Last weeks</h3>
+        <p> week 47 </p>
+        <p> week 46 </p>
+        <p> week 45 </p>
       </div>
     );
   }
