@@ -1,0 +1,29 @@
+@form-border-radius: 3px;
+@form-border-color: #e6e6e6;
+
+input, button, textarea {
+  background: #fff;
+  color: @text-color;
+  font-size: 1em;
+  padding: 10px;
+  //box-sizing: border-box;
+  margin: 0;
+  border: 1px solid @form-border-color;
+  border-radius: @form-border-radius;
+  vertical-align: top;
+}
+
+input, textarea {
+   &:focus {
+    outline: none;
+  }
+}
+
+button {
+  &:active {
+    //padding-top: 11px;
+    //padding-bottom: 9px;
+    color: @text-color;
+    background: #f6f6f6;
+  }
+}

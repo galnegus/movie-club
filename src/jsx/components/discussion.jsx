@@ -1,6 +1,38 @@
 import React, {Component} from 'react';
 
 export class Discussion extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {commentsDiv: null};
+    this.storeCommentsDiv = this.storeCommentsDiv.bind(this);
+    this.autoResize = this.autoResize.bind(this);
+  }
+
+  storeCommentsDiv(commentsDiv) {
+    this.setState({commentsDiv});
+
+    if (commentsDiv)
+      commentsDiv.scrollTop = commentsDiv.scrollHeight;
+  }
+
+  // resizes the AddComment textarea whenever the input event is triggered,
+  // this function will also make sure that the Comments div stays scrolled to the bottom (if it's there)
+  // inspired by: https://maximilianhoffmann.com/posts/autoresizing-textareas
+  autoResize(e) {
+    // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollHeight#Determine_if_an_element_has_been_totally_scrolled
+    const hasBeenTotallyScrolled = this.state.commentsDiv.scrollHeight - this.state.commentsDiv.scrollTop === this.state.commentsDiv.clientHeight;
+
+    const textarea = e.currentTarget;
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight+'px';
+    textarea.scrollTop = textarea.scrollHeight;
+    window.scrollTo(window.scrollLeft,(textarea.scrollTop + textarea.scrollHeight));
+
+    if (hasBeenTotallyScrolled)
+      this.state.commentsDiv.scrollTop = this.state.commentsDiv.scrollHeight;
+  }
+
   render() {
     const tempMovieInfo = {
       poster_path: 'http://image.tmdb.org/t/p/w342/ChTLC17F4nIjA7jP4F6QX9A8FJ.jpg',
@@ -13,8 +45,8 @@ export class Discussion extends Component {
       <div className='discussion'>
         <MovieInfo info={tempMovieInfo} />
         <div className='discussion__content'>
-          <Comments />
-          <AddComment />
+          <Comments storeCommentsDiv={this.storeCommentsDiv} />
+          <AddComment onInput={this.autoResize} />
         </div>
       </div>
     );
@@ -41,6 +73,17 @@ class MovieInfo extends Component {
 }
 
 class Comments extends Component {
+  constructor(props) {
+    super(props);
+
+    this.callStoreCommentsDiv = this.callStoreCommentsDiv.bind(this);
+  }
+
+  // NOTE: If this is called inline (using fat arrow) there will be an infinite loop because react is stupid when it comes to refs.
+  callStoreCommentsDiv(commentsDiv) {
+    this.props.storeCommentsDiv(commentsDiv);
+  }
+
   render() {
     const tempComments = [
       {
@@ -53,11 +96,36 @@ class Comments extends Component {
         date: '2002/11/22',
         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pharetra lectus id efficitur facilisis. Sed bibendum risus nibh. Suspendisse eleifend neque sagittis tortor fermentum commodo. Cras faucibus in lacus ac tincidunt. Morbi eget ipsum vehicula, eleifend nisl a, suscipit arcu. Nullam faucibus nulla iaculis nunc dapibus, eu dapibus ex tempus. Sed congue eget metus nec ornare. Morbi efficitur ipsum in.',
         key: 1
+      }, {
+        author: 'ABadBoy',
+        date: '2002/11/22',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pharetra lectus id efficitur facilisis. Sed bibendum risus nibh. Suspendisse eleifend neque sagittis tortor fermentum commodo. Cras faucibus in lacus ac tincidunt. Morbi eget ipsum vehicula, eleifend nisl a, suscipit arcu. Nullam faucibus nulla iaculis nunc dapibus, eu dapibus ex tempus. Sed congue eget metus nec ornare. Morbi efficitur ipsum in.',
+        key: 2
+      }, {
+        author: 'ABadBoy',
+        date: '2002/11/22',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pharetra lectus id efficitur facilisis. Sed bibendum risus nibh. Suspendisse eleifend neque sagittis tortor fermentum commodo. Cras faucibus in lacus ac tincidunt. Morbi eget ipsum vehicula, eleifend nisl a, suscipit arcu. Nullam faucibus nulla iaculis nunc dapibus, eu dapibus ex tempus. Sed congue eget metus nec ornare. Morbi efficitur ipsum in.',
+        key: 3
+      }, {
+        author: 'ABadBoy',
+        date: '2002/11/22',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pharetra lectus id efficitur facilisis. Sed bibendum risus nibh. Suspendisse eleifend neque sagittis tortor fermentum commodo. Cras faucibus in lacus ac tincidunt. Morbi eget ipsum vehicula, eleifend nisl a, suscipit arcu. Nullam faucibus nulla iaculis nunc dapibus, eu dapibus ex tempus. Sed congue eget metus nec ornare. Morbi efficitur ipsum in.',
+        key: 4
+      }, {
+        author: 'ABadBoy',
+        date: '2002/11/22',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pharetra lectus id efficitur facilisis. Sed bibendum risus nibh. Suspendisse eleifend neque sagittis tortor fermentum commodo. Cras faucibus in lacus ac tincidunt. Morbi eget ipsum vehicula, eleifend nisl a, suscipit arcu. Nullam faucibus nulla iaculis nunc dapibus, eu dapibus ex tempus. Sed congue eget metus nec ornare. Morbi efficitur ipsum in.',
+        key: 5
+      }, {
+        author: 'ABadBoy',
+        date: '2002/11/22',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pharetra lectus id efficitur facilisis. Sed bibendum risus nibh. Suspendisse eleifend neque sagittis tortor fermentum commodo. Cras faucibus in lacus ac tincidunt. Morbi eget ipsum vehicula, eleifend nisl a, suscipit arcu. Nullam faucibus nulla iaculis nunc dapibus, eu dapibus ex tempus. Sed congue eget metus nec ornare. Morbi efficitur ipsum in.',
+        key: 6
       }
     ];
 
     return (
-      <div>
+      <div className='comments' ref={this.callStoreCommentsDiv}>
         {tempComments.map((comment) => (<Comment commentData={comment} key={comment.key} />))}
       </div>
     );
@@ -77,13 +145,14 @@ class Comment extends Component {
   }
 }
 
+
 class AddComment extends Component {
   render() {
     return (
-      <div className='add-comment'>
-        <input type='text' className='add-comment__input' />
-        <button className='add-comment__submit' type='button'>Submit</button>
-      </div>
+      <form className='add-comment'>
+        <textarea className='add-comment__input' placeholder='Leave a comment' rows='1' onInput={this.props.onInput} />
+        <button className='add-comment__submit' type='submit'>Submit</button>
+      </form>
     );
   }
 }

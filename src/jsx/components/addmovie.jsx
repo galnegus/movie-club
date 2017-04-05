@@ -16,7 +16,7 @@ export class AddMovie extends Component{
 
   render(){
   	return(
-  	  <div>
+  	  <div className='add-movie-container'>
     		<Search handleSearch={this.handleSearch} />
     		<MovieTable movies={this.state.searchResults.results} />
   	  </div>
@@ -31,11 +31,15 @@ class Search extends Component{
   constructor() {
     super();
     this.state = {
-       searchResults: {},
+       searchResults: {}
     };
+
     this.onSubmit=this.onSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this.inputRef.focus();
+  }
 
   onSubmit(e) {
       e.preventDefault();
@@ -464,12 +468,9 @@ class Search extends Component{
 
   render(){
   	return(
-  	  <div>
-        <form onSubmit={this.onSubmit}>
-    		  <input type="search" placeholder="Search" />
-          <button type="submit">Search</button>
-        </form>
-  	  </div>
+      <form className='add-movie-search' onSubmit={this.onSubmit}>
+  		  <input className='add-movie-search__input' ref={(inputRef) => this.inputRef = inputRef} type="text" placeholder="Search for a movie" />
+      </form>
   	);
   }
 }
@@ -480,7 +481,7 @@ class MovieTable extends Component{
     var rows = [];
     if(this.props.movies){
       this.props.movies.forEach( movie => {
-        // console.log("movie = ", movie.poster_path)
+        //console.log("movie = ", movie.poster_path)
         rows.push( <MovieRow id={movie.id} 
                               key={movie.id}
                               title={movie.title}
@@ -491,9 +492,9 @@ class MovieTable extends Component{
     }
 
   	return(
-  	  <div>
+  	  <ul className='add-movie-results'>
         {rows}
-  	  </div>
+  	  </ul>
   	);
   }
 }
@@ -503,18 +504,24 @@ class MovieTable extends Component{
 
 
 class MovieRow extends Component{
+  // the datestring is formatted like YYYY-MM-DD and we only want YYYY.
+  datestring2year(datestring) {
+    return datestring.slice(0, 4);
+  }
+
   render(){
-    const src = "http://image.tmdb.org/t/p/w185" + this.props.poster_path;
+    const src = "http://image.tmdb.org/t/p/w92" + this.props.poster_path;
   	return(
-  	  <div>
-        <div>
-            <div><img src={src}></img></div>
-            <div>{this.props.title}</div>
-            <div>{this.props.release_date}</div>
-            <div><button type="submit"> Add </button></div>
-            <div>{this.props.overview}</div>
+  	  <li className='add-movie-results__item'>
+        <img className='add-movie-results__image' src={src}></img>
+        <div className='add-movie-results__block'>
+          <div className='add-movie-results__info'>
+            <strong className='add-movie-results__title'>{this.props.title + ' (' + this.datestring2year(this.props.release_date) + ')'}</strong>
+            <p className='add-movie-results__text'>{this.props.overview}</p>
+          </div>
+          <a href='#' className='add-movie-results__button' type="submit"><span className='typcn typcn-plus'></span></a>
         </div>
-  	  </div>
+  	  </li>
   	);
   }
 }

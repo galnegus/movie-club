@@ -5,10 +5,11 @@
 
 .discussion__content {
   margin-left: 250px;
-  padding: 20px;
   height: 100%;
   position: relative;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .movie-info {
@@ -30,6 +31,13 @@
   padding: 10px;
 }
 
+.comments {
+  //flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
 .comment {
 }
 
@@ -45,40 +53,33 @@
 @add-comment-button-width: 150px;
 
 .add-comment {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
   background: #fff;
-  margin: 10px;
-  padding: 5px;
-
+  margin: 0 20px 20px 20px;
+  box-sizing: border-box;
   display: flex;
   #BoxShadowHelper(1);
-  border-radius: 3px;
+  border-radius: @form-border-radius;
+  flex-shrink: 0;
+  border: 3px solid #e6e6e6;
 }
 
 .add-comment__input, .add-comment__submit {
-  background: #fff;
-  font-size: 1em;
-  padding: 0.5em;
+  border: none;
 }
 
 .add-comment__input {
   flex-grow: 1;
-  border: 1px solid #e6e6e6;
 
-  &:focus {
-    outline: none;
-  }
+  display: block;
+  overflow: hidden;
+  resize: none;
+
+  border-radius: @form-border-radius 0 0 @form-border-radius;
 }
 
 .add-comment__submit {
   width: @add-comment-button-width;
-  border: 0;
+  border-left: 1px solid @form-border-color;
 
-  &:active {
-    padding-top: 0.6em;
-    color: #404040;
-  }
+  border-radius: 0 @form-border-radius @form-border-radius 0;
 }

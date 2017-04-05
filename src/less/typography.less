@@ -1,12 +1,15 @@
+@text-color: #404040;
+
 body {
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-weight: 400;
-  color: #404040;
+  color: @text-color;
 }
 
 p {
   margin: 0.5em 0;
+  line-height: 1.7;
 }
 
 h1 {
@@ -39,4 +42,17 @@ small {
 
 strong {
   font-weight: 500;
+}
+
+a {
+  color: lighten(@text-color, 10%);
+  text-decoration: none;
+
+  &:hover {
+    color: lighten(@text-color, 20%);
+  }
+
+  &:active {
+    color: lighten(@text-color, 30%);
+  }
 }

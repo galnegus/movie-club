@@ -15,14 +15,11 @@ module.exports = {
     },
     {
       test: /\.less?$/,
-      use: [{
-        loader: "style-loader" // creates style nodes from JS strings
-      }, {
-        loader: "css-loader" // translates CSS into CommonJS
-      }, {
-        loader: "less-loader" // compiles Less to CSS
-      }]
-      //include: path.join(__dirname, 'src/less')
+      loader: "style-loader!css-loader!postcss-loader!less-loader"
+    },
+    {
+      test: /\.(eot|woff|svg|ttf)?$/,
+      loader: 'file-loader'
     }]
   },
   devServer: {

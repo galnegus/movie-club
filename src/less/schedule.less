@@ -1,0 +1,50 @@
+.schedule-list {
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+}
+
+.schedule-list__item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  //#BoxShadowHelper(1);
+  border: 1px solid #e6e6e6;
+  margin: 10px;
+}
+
+.schedule-list__item--current-week {
+  background: linear-gradient(to right, rgba(241,231,103,1) 0%, rgba(254,182,69,1) 100%);
+}
+
+.schedule-list__item--faded {
+  opacity: 0.4;
+
+  .schedule-list__bumps {
+    cursor: default;
+  }
+}
+
+.schedule-list__bumps {
+  font-size: 2em;
+  padding: 20px;
+
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+
+  cursor: move;
+  user-select: none;
+}
+
+.schedule-list__image {
+
+}
+
+.schedule-list__info {
+  margin-left: 20px;
+
+  small {
+    color: #999;
+  }
+}
