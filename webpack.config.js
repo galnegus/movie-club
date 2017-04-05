@@ -10,8 +10,8 @@ module.exports = {
     rules: [{
       test: /\.jsx?$/,
       loader: 'babel-loader',
-      query: { presets: ['es2015', 'react']},
-      include: path.join(__dirname, 'src/jsx')
+      query: { presets: ['es2015', 'react'] },
+      include: path.join(__dirname, 'src/jsx'),
     },
     {
       test: /\.less?$/,
