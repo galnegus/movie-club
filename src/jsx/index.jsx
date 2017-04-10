@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import {Sidebar} from './components/sidebar.jsx';
-import {Discussion} from './components/discussion.jsx';
+import {Discussion} from './components/discussion/discussion.jsx';
 import {Schedule} from './components/schedule.jsx';
 import {AddMovie} from './components/addmovie.jsx';
 import '../less/main.less';
