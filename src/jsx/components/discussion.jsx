@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Test from './test.jsx';
 
 export class Discussion extends Component {
   constructor(props) {
@@ -40,12 +41,13 @@ export class Discussion extends Component {
       overview: "The story of two outcast sisters, Ginger (Katharine Isabelle) and Brigitte (Emily Perkins), in the mindless suburban town of Bailey Downs. On the night of Ginger's first period, she is savagely attacked by a wild creature. Ginger's wounds miraculously heal but something is not quite right. Now Brigitte must save her sister and save herself.",
       release_date: '2000-08-01'
     };
-
+// <Comments storeCommentsDiv={this.storeCommentsDiv} />
     return (
       <div className='discussion'>
         <MovieInfo info={tempMovieInfo} />
         <div className='discussion__content'>
-          <Comments storeCommentsDiv={this.storeCommentsDiv} />
+          
+          <Test />
           <AddComment onInput={this.autoResize} />
         </div>
       </div>
