@@ -53,6 +53,8 @@ class Login extends Component{
     } else { // logged in
       const { profile } = this.props;
 
+      if (!profile) return (<p>Loading</p>); // make this look prettier
+
       if (profile.role === 'admin') {
         return(
           <div className='sidebar-menu'>
