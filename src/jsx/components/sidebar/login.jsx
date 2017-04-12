@@ -18,7 +18,7 @@ class Login extends Component{
   componentWillReceiveProps(nextProps) {
     // change the store to reflect that the initial loading of the profile is done
     const { auth, profile, dispatchDoneLoadingSidebar } = nextProps;
-    if (auth && (isLoaded(profile))) {
+    if (isLoaded(auth) && ((!isEmpty(auth) && isLoaded(profile)) || isEmpty(auth))) {
       dispatchDoneLoadingSidebar();
     }
   }

@@ -9,21 +9,37 @@ export class AddMovie extends Component{
     super();
     this.state = {
       searchResults: {},
+      showLoader: false
     };
+
     this.handleSearch=this.handleSearch.bind(this);
   }
 
-  handleSearch(results){
-    this.setState({searchResults: results});
+  handleSearch(promise){
+    this.setState({
+      searchResults: {},
+      showLoader: true
+    });
+    promise.then(response => {
+      this.setState({
+        searchResults: response.data,
+        showLoader: false
+      });
+    }).catch(response => {
+      console.error(response);
+    });
   }
 
   render(){
-  	return(
-  	  <div className='add-movie-container'>
-    		<Search handleSearch={this.handleSearch} />
-    		<MovieTable searchResults={this.state.searchResults.results} />
-  	  </div>
-  	);
+    return (
+      <div className='add-movie-container'>
+        <Search handleSearch={this.handleSearch} />
+        {this.state.showLoader ? 
+          (<div className='add-movie-loader loader loader--medium' />) 
+        : ''}
+        <MovieTable searchResults={this.state.searchResults.results} />
+      </div>
+    );
   }
 }
 

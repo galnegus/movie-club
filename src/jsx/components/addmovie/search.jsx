@@ -17,20 +17,17 @@ export class Search extends Component{
   }
 
   onSubmit(e) {
-      e.preventDefault();
-      axios({
-        method: 'get',
-        url: 'https://api.themoviedb.org/3/search/movie',
-        params:{
-          api_key: 'a4eb585b085da1972100342a6d21c935',
-          query: this.inputRef.value,
-        }
-      }).then(response => {
-        this.props.handleSearch(response.data);  
-      }).catch(response => {
-        console.error(response);
-      });
-      // console.log("e value = ", e.target.value);      
+    e.preventDefault();
+    const promise = axios({
+      method: 'get',
+      url: 'https://api.themoviedb.org/3/search/movie',
+      params:{
+        api_key: 'a4eb585b085da1972100342a6d21c935',
+        query: this.inputRef.value,
+      }
+    });
+
+    this.props.handleSearch(promise);
   }
 
   render(){

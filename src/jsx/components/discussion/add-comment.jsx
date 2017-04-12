@@ -12,6 +12,10 @@ class AddComment extends Component {
     this.setTextareaRef = this.setTextareaRef.bind(this);
     this.setFormRef = this.setFormRef.bind(this);
     this.handleEnterKey = this.handleEnterKey.bind(this);
+
+    this.state = {
+      buttonValue: 'Submit'
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,14 +34,18 @@ class AddComment extends Component {
     this.textarea = textarea;
   }
 
-  // WIP, adding spinner to button
   onSubmit(e) {
     if (e) e.preventDefault();
     const { profile } = this.props;
-    setTimeout(() => {
-      console.log('IT IS DONE');
-    }, 1000);
-    //this.props.firebase.push('/comments', { author: profile.username, text: this.textarea.value, date: moment().format('MMMM Do YYYY, h:mm:ss a') })
+    const oldButtonValue = this.state.buttonValue;
+    this.setState({ buttonValue: (<span className='loader loader--small' />) });
+    this.props.firebase.push('/comments', { 
+      author: profile.username,
+      text: this.textarea.value,
+      date: moment().format('MMMM Do YYYY, h:mm:ss a')
+    }).then(() => {
+      this.setState({ buttonValue: oldButtonValue });
+    });
     this.textarea.value = '';
     this.props.resizeTextarea(this.textarea);
   }
@@ -62,7 +70,7 @@ class AddComment extends Component {
       contents = (
         <form className='add-comment' onSubmit={this.onSubmit} ref={this.setFormRef}>
           <textarea className='add-comment__input' ref={this.setTextareaRef} placeholder='Leave a comment' rows='1' onKeyDown={this.handleEnterKey} onInput={() => this.props.resizeTextarea(this.textarea)} />
-          <button className='add-comment__submit' type='submit'>Submit</button>
+          <button className='add-comment__submit' type='submit'>{this.state.buttonValue}</button>
         </form>
       );
     }
