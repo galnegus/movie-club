@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux'
-import { firebaseConnect, pathToJS, isLoaded } from 'react-redux-firebase'
+import { firebaseConnect, pathToJS, isLoaded, isEmpty } from 'react-redux-firebase'
 
 class Login extends Component{
   constructor(props) {
@@ -59,7 +59,7 @@ class Login extends Component{
     } else { // logged in
       const { profile } = this.props;
 
-      if (!isLoaded(profile)) return (<p>LOADING PROFILE</p>); // make this look prettier
+      if (!isLoaded(profile) || isEmpty(profile)) return (<p>LOADING PROFILE</p>); // make this look prettier
 
       if (profile.role === 'admin') {
         return(
