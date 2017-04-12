@@ -1,27 +1,27 @@
 import { combineReducers } from 'redux';
-import { DONE_LOADING_SIDEBAR, DONE_LOADING_COMMENTS, DONE_LOADING_ADD_COMMENT } from '../constants';
+import { IS_LOADING_SIDEBAR, IS_LOADING_COMMENTS, IS_LOADING_ADD_COMMENT } from '../constants';
 
 const initialState = {
-  sidebar: false,
-  comments: false,
-  addComments: false
+  sidebar: true,
+  comments: true,
+  addComments: true
 }
 
-const sidebar = (state = false, action) => {
-  if (action.type === DONE_LOADING_SIDEBAR)
-    return true;
+const sidebar = (state = true, action) => {
+  if (action.type === IS_LOADING_SIDEBAR)
+    return action.value;
   return state;
 }
 
-const comments = (state = false, action) => {
-  if (action.type === DONE_LOADING_COMMENTS)
-    return true;
+const comments = (state = true, action) => {
+  if (action.type === IS_LOADING_COMMENTS)
+    return action.value;
   return state;
 }
 
-const addComment = (state = false, action) => {
-  if (action.type === DONE_LOADING_ADD_COMMENT)
-    return true;
+const addComment = (state = true, action) => {
+  if (action.type === IS_LOADING_ADD_COMMENT)
+    return action.value;
   return state;
 }
 

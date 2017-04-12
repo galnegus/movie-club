@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { firebaseConnect, pathToJS, isLoaded, isEmpty } from 'react-redux-firebase';
 import moment from 'moment';
-import { doneLoadingAddComment } from '../../actions';
+import { isLoadingAddComment } from '../../actions';
 
 class AddComment extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class AddComment extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (isLoaded(nextProps.auth)) {
-      nextProps.dispatchDoneLoadingAddComment();
+      nextProps.dispatchIsLoadingAddComment(false);
       if (this.textarea)
         this.textarea.focus();
     }
@@ -42,7 +42,7 @@ class AddComment extends Component {
     this.props.firebase.push('/comments', { 
       author: profile.username,
       text: this.textarea.value,
-      date: moment().format('MMMM Do YYYY, h:mm:ss a')
+      date: moment().format()
     }).then(() => {
       this.setState({ buttonValue: oldButtonValue });
     });
@@ -89,6 +89,7 @@ export default connect(
     auth: pathToJS(firebase, 'auth'),
     profile: pathToJS(firebase, 'profile')
   }), dispatch => ({
-    dispatchDoneLoadingAddComment: () => dispatch(doneLoadingAddComment())
+    dispatchIsLoadingAddComment: (value) => dispatch(isLoadingAddComment(value))
   })
 )(wrappedAddComment);
+

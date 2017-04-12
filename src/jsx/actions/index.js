@@ -1,19 +1,22 @@
-import { DONE_LOADING_SIDEBAR, DONE_LOADING_COMMENTS, DONE_LOADING_ADD_COMMENT } from '../constants';
+import { IS_LOADING_SIDEBAR, IS_LOADING_COMMENTS, IS_LOADING_ADD_COMMENT } from '../constants';
 
-export const doneLoadingSidebar = (component) => {
+export const isLoadingSidebar = (value) => {
   return {
-    type: DONE_LOADING_SIDEBAR,
+    type: IS_LOADING_SIDEBAR,
+    value
   }
 };
 
-export const doneLoadingComments = (component) => {
+export const isLoadingComments = (value) => {
   return {
-    type: DONE_LOADING_COMMENTS,
+    type: IS_LOADING_COMMENTS,
+    value
   }
 };
 
-export const doneLoadingAddComment = (component) => {
+export const isLoadingAddComment = (value) => {
   return {
-    type: DONE_LOADING_ADD_COMMENT,
+    type: IS_LOADING_ADD_COMMENT,
+    value
   }
 };

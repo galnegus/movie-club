@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Comment from './comment.jsx';
 import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty, dataToJS } from 'react-redux-firebase';
-import { doneLoadingComments } from '../../actions';
+import { isLoadingComments } from '../../actions';
 
 class Comments extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class Comments extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (isLoaded(nextProps.comments))
-      nextProps.dispatchDoneLoadingComments();
+      nextProps.dispatchIsLoadingComments(false);
   }
 
   // NOTE: If this is called inline (using fat arrow) there will be an infinite loop because react is stupid when it comes to refs.
@@ -33,7 +33,14 @@ class Comments extends Component {
     } else if(isEmpty(comments)){
       commentList = (<div>There are no comments. Be the first one to add a comment!</div>);
     } else {
-      commentList = Object.keys(comments).map(key => (<Comment commentData={comments[key]} key={key} />));
+      commentList = Object.keys(comments)
+        .map(key => comments[key])
+        .sort((a, b) => {
+          if (a.date < b.date) return -1;
+          if (a.date > b.date) return 1;
+          return 0;
+        })
+        .map(comment => (<Comment commentData={comment} key={comment.date} />));
     }
 
     return (
@@ -45,13 +52,13 @@ class Comments extends Component {
  }
 
 const wrappedComments =  firebaseConnect([
-  '/comments'
+  '/comments#orderByValue'
 ])(Comments)
 
 export default connect(
   ({ firebase }) => ({
     comments: dataToJS(firebase, 'comments'),
   }), dispatch => ({
-    dispatchDoneLoadingComments: () => dispatch(doneLoadingComments())
+    dispatchIsLoadingComments: (value) => dispatch(isLoadingComments(value))
   })
 )(wrappedComments);

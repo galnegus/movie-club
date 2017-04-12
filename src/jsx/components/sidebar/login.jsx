@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux'
 import { firebaseConnect, pathToJS, isLoaded, isEmpty } from 'react-redux-firebase'
-import { doneLoadingSidebar } from '../../actions';
+import { isLoadingSidebar } from '../../actions';
 
 class Login extends Component{
   constructor(props) {
@@ -17,19 +17,21 @@ class Login extends Component{
 
   componentWillReceiveProps(nextProps) {
     // change the store to reflect that the initial loading of the profile is done
-    const { auth, profile, dispatchDoneLoadingSidebar } = nextProps;
+    const { auth, profile, dispatchIsLoadingSidebar } = nextProps;
     if (isLoaded(auth) && ((!isEmpty(auth) && isLoaded(profile)) || isEmpty(auth))) {
-      dispatchDoneLoadingSidebar();
+      dispatchIsLoadingSidebar(false);
     }
   }
 
   login(e) {
     e.preventDefault();
+    const { dispatchIsLoadingSidebar } = this.props;
 
+    dispatchIsLoadingSidebar(true);
     this.props.firebase.login({
       email: this.emailInput.value,
       password: this.passwordInput.value
-    });
+    }).then(() => dispatchIsLoadingSidebar(false));
   }
 
   // after logging out we have to reload the page because logging out causes all of the existing firebase data in the store to be removed (for some reason),
@@ -129,6 +131,6 @@ export default connect(
     auth: pathToJS(firebase, 'auth'),
     profile: pathToJS(firebase, 'profile')
   }), dispatch => ({
-    dispatchDoneLoadingSidebar: () => dispatch(doneLoadingSidebar())
+    dispatchIsLoadingSidebar: (value) => dispatch(isLoadingSidebar(value))
   })
 )(wrappedLogin);

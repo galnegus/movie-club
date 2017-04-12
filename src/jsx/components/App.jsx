@@ -10,13 +10,15 @@ import LoadingOverlay from './LoadingOverlay.jsx';
 class App extends Component {
   render() {
     const { isLoading, history } = this.props;
-    let overlay = <LoadingOverlay />;
+    let overlay;
 
-    const doneLoadingSidebar = isLoading.sidebar;
-    const doneLoadingDiscussion = isLoading.comments && isLoading.addComment;
+    const doneLoadingSidebar = !isLoading.sidebar;
+    const doneLoadingDiscussion = !isLoading.comments && !isLoading.addComment;
     if ((history.location.pathname === '/' && doneLoadingSidebar && doneLoadingDiscussion)
       || history.location.pathname !== '/' && doneLoadingSidebar)
       overlay = '';
+    else
+      overlay = (<LoadingOverlay />);
 
     return (
       <div>
