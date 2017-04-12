@@ -35,7 +35,7 @@
 }
 
 .comments {
-  //flex-grow: 1;
+  flex-grow: 1;
   overflow-y: auto;
   padding: 20px;
   box-sizing: border-box;
@@ -57,12 +57,18 @@
 
 .add-comment-container {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
-  #BoxShadowHelper(2);
+  #BoxShadowHelper(1);
+}
+
+.add-comment-denial {
+  text-align: center;
+  display: block;
+  padding: 10px;
 }
 
 .add-comment {
   background: #fff;
-  margin: 10px 20px;
+  margin: 10px;
   box-sizing: border-box;
   display: flex;
   #BoxShadowHelper(1);
