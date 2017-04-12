@@ -6,12 +6,18 @@ import { Week } from './schedule/week.jsx';
 class Schedule extends Component{
 	render(){
 	    const { movies } = this.props;
-	    console.log("movies = ", movies)
+	    let movies_array = [];
 	    var rows = [];
 	    if(isLoaded(movies)){
-	        Object.keys(movies).map( key => {
-               rows.push(<Week {...movies[key].api_data} key={movies[key].api_data.id} year_week={movies[key].year_week}  />)
-	        });
+	        rows = Object.keys(movies)
+	        			 .map( key => movies[key])
+	        			 .sort((b,a) => {
+	        			 	if(a.year_week > b.year_week) return 1;
+	        			 	if(a.year_week < b.year_week) return -1;
+	        			 	return 0;
+	        			 })
+	        			 .map( movie => (<Week {...movie.api_data} key={movie.api_data.id} year_week={movie.year_week} />))
+	        
 	    }
 		return(
 			<ul className='schedule-list'>
