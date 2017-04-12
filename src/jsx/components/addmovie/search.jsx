@@ -26,8 +26,9 @@ export class Search extends Component{
           query: this.inputRef.value,
         }
       }).then(response => {
-        console.log("results = ", response.data)
         this.props.handleSearch(response.data);  
+      }).catch(response => {
+        console.error(response);
       });
       // console.log("e value = ", e.target.value);      
   }
@@ -35,7 +36,8 @@ export class Search extends Component{
   render(){
   	return(
       <form className='add-movie-search' onSubmit={this.onSubmit}>
-  		  <input className='add-movie-search__input' ref={(inputRef) => this.inputRef = inputRef} type="text" placeholder="Search for a movie" />
+  		  <input className='add-movie-search__input' ref={(inputRef) => this.inputRef = inputRef} type='text' placeholder='Search for a movie' />
+        <button className='add-movie-search__button' type='submit'><span className='typcn typcn-zoom' /></button>
       </form>
   	);
   }

@@ -4,22 +4,25 @@
 }
 
 .discussion__content {
-  margin-left: 250px;
+  margin-right: 250px;
   height: 100%;
   position: relative;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+
 }
 
 .movie-info {
   background: #fff;
   position: fixed;
-  left: 200px;
+  right: 0;
   top: 0;
   bottom: 0;
   width: 250px;
-  #BoxShadowHelper(2);
+  #BoxShadowHelper(1);
+  overflow-y: auto;
+  z-index: 5;
 
   img {
     width: 250px;
@@ -52,15 +55,20 @@
 
 @add-comment-button-width: 150px;
 
+.add-comment-container {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  #BoxShadowHelper(2);
+}
+
 .add-comment {
   background: #fff;
-  margin: 0 20px 20px 20px;
+  margin: 10px 20px;
   box-sizing: border-box;
   display: flex;
   #BoxShadowHelper(1);
   border-radius: @form-border-radius;
   flex-shrink: 0;
-  border: 3px solid #e6e6e6;
+  border: 3px solid lighten(@accent-color, 20%);
 }
 
 .add-comment__input, .add-comment__submit {

@@ -7,7 +7,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import {Sidebar} from './components/sidebar.jsx';
 import {Discussion} from './components/discussion/discussion.jsx';
 import {Schedule} from './components/schedule.jsx';
-import {AddMovie} from './components/addmovie.jsx';
+import {AddMovie} from './components/add-movie.jsx';
 import '../less/main.less';
 import store from './store.jsx';
 

@@ -49,7 +49,7 @@ class Week extends Component{
 
 		return(
 			<li className={'schedule-list__item ' + classModifier}>
-				<div className='schedule-list__bumps'><span className='typcn typcn-th-small'></span></div>
+				<div className='schedule-list__bumps'><span className='typcn typcn-th-small' /></div>
 				<img className='schedule-list__image' src={this.props.poster} />
 				<div className='schedule-list__info'>
 					<h3>{'Week ' + this.props.weekNumber} {isCurrentWeek ? <small>current week</small> : ''} </h3>

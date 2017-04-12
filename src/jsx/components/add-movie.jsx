@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {Search} from './addmovie/search.jsx';
-import {MovieTable} from './addmovie/movietable.jsx'
+import {MovieTable} from './addmovie/movie-table.jsx'
 
 export class AddMovie extends Component{
   constructor() {

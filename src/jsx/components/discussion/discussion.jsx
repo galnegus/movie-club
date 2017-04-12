@@ -9,7 +9,7 @@ export class Discussion extends Component {
 
     this.state = {commentsDiv: null};
     this.storeCommentsDiv = this.storeCommentsDiv.bind(this);
-    this.autoResize = this.autoResize.bind(this);
+    this.resizeTextarea = this.resizeTextarea.bind(this);
   }
 
   storeCommentsDiv(commentsDiv) {
@@ -22,11 +22,10 @@ export class Discussion extends Component {
   // resizes the AddComment textarea whenever the input event is triggered,
   // this function will also make sure that the Comments div stays scrolled to the bottom (if it's there)
   // inspired by: https://maximilianhoffmann.com/posts/autoresizing-textareas
-  autoResize(e) {
+  resizeTextarea(textarea) {
     // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollHeight#Determine_if_an_element_has_been_totally_scrolled
     const hasBeenTotallyScrolled = this.state.commentsDiv.scrollHeight - this.state.commentsDiv.scrollTop === this.state.commentsDiv.clientHeight;
 
-    const textarea = e.currentTarget;
     textarea.style.height = 'auto';
     textarea.style.height = textarea.scrollHeight+'px';
     textarea.scrollTop = textarea.scrollHeight;
@@ -49,7 +48,7 @@ export class Discussion extends Component {
         <MovieInfo info={tempMovieInfo} />
         <div className='discussion__content'>
           <Comments storeCommentsDiv={this.storeCommentsDiv} />
-          <AddComment onInput={this.autoResize} />
+          <AddComment resizeTextarea={this.resizeTextarea} />
         </div>
       </div>
     );

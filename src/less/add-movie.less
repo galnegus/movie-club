@@ -3,6 +3,7 @@
 }
 
 .add-movie-search {
+  position: relative;
 }
 
 .add-movie-search__input {
@@ -10,6 +11,22 @@
   padding: 14px;
   font-size: 1.414em;
   #BoxShadowHelper(1);
+}
+
+.add-movie-search__button {
+  position: absolute;
+  top: 1px;
+  right: 0;
+
+  padding: 11px 15px;
+  font-size: 2em;
+  border: none;
+  color: #999;
+  cursor: pointer;
+
+  &:hover, &:active {
+    color: darken(#999, 10%);
+  }
 }
 
 @add-movie-poster-height: 138px;
@@ -48,12 +65,17 @@
 }
 
 .add-movie-results__button {
-  display: block;
+  //display: block;
   float: right;
   font-size: 3em;
-  line-height: @add-movie-poster-height;
+  //line-height: @add-movie-poster-height;
   border-left: 1px solid #e6e6e6;
   padding: 0 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     background: #fcfcfc;
