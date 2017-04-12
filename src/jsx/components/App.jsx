@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter, Route } from 'react-router-dom';
 import { Sidebar } from './sidebar.jsx';
 import { Discussion } from './discussion/discussion.jsx';
-import { Schedule } from './schedule.jsx';
+import Schedule from './schedule.jsx';
 import { AddMovie } from './add-movie.jsx';
 import LoadingOverlay from './LoadingOverlay.jsx';
 
