@@ -19,7 +19,7 @@ class MovieTable extends Component{
 
   render(){
     const addedMoviesID = this.getAddedMoviesID();
-    var rows = [];
+    let rows = [];
     if(this.props.searchResults){
       if(this.props.searchResults.length == 0){
         rows = 'No movie was found'
