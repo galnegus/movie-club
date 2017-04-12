@@ -11,7 +11,7 @@ export class Week extends Component{
 		if (this.props.year_week === current_year_week) {
 			classModifier = 'schedule-list__item--current-week';
 			isCurrentWeek = true;
-		} else if (this.props.year_week > current_year_week) {
+		} else if (this.props.year_week < current_year_week) {
 			classModifier = 'schedule-list__item--faded';
 		}
 
