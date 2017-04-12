@@ -50,7 +50,7 @@ class MovieRow extends Component {
 }
 
 const wrappedMovieRow = firebaseConnect([
-  { type: 'once', path: '/movies', queryParams: [ 'orderByChild=year_week' ] }
+  { path: '/movies', queryParams: [ 'orderByChild=year_week' ] }
 ])(MovieRow);
 export default connect(({ firebase }) => ({
   movies: dataToJS(firebase, 'movies'),

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import { firebaseConnect } from 'react-redux-firebase'
 import { connect } from 'react-redux';
+import { firebaseConnect, pathToJS, isLoaded, isEmpty } from 'react-redux-firebase';
+import moment from 'moment';
 
 class AddComment extends Component {
   constructor(props) {
@@ -22,18 +23,15 @@ class AddComment extends Component {
 
   onSubmit(e) {
     if (e) e.preventDefault();
-
-    console.log(this.textarea.value);
-
+    const { profile } = this.props;
+    this.props.firebase.push('/comments', { author: profile.username, text: this.textarea.value, date: moment().format('MMMM Do YYYY, h:mm:ss a') })
     this.textarea.value = '';
     this.props.resizeTextarea(this.textarea);
-    //this.props.firebase.push('/comments', { author: 'cool', text: this.textarea.value })
   }
 
   handleEnterKey(e) {
     if (e.key !== 'Enter') return;
     if (e.ctrlKey || e.shiftKey) return;
-
     this.onSubmit();
     e.stopPropagation();
     e.preventDefault();
@@ -41,7 +39,6 @@ class AddComment extends Component {
 
   render() {
     return (
-
       <div className='add-comment-container'>
         <form className='add-comment' onSubmit={this.onSubmit} ref={this.setFormRef}>
           <textarea className='add-comment__input' ref={this.setTextareaRef} placeholder='Leave a comment' rows='1' onKeyDown={this.handleEnterKey} onInput={() => this.props.resizeTextarea(this.textarea)} />
@@ -53,4 +50,6 @@ class AddComment extends Component {
 }
 
 const wrappedAddComment = firebaseConnect()(AddComment);
-export default connect()(wrappedAddComment);
+export default connect(({ firebase }) => ({
+  profile: pathToJS(firebase, 'profile')
+}))(wrappedAddComment);
