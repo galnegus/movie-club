@@ -14,13 +14,12 @@ class AddComment extends Component {
     this.handleEnterKey = this.handleEnterKey.bind(this);
   }
 
-  componentDidMount() {
-    this.textarea.focus();
-  }
-
   componentWillReceiveProps(nextProps) {
-    if (isLoaded(nextProps.auth))
+    if (isLoaded(nextProps.auth)) {
       nextProps.dispatchDoneLoadingAddComment();
+      if (this.textarea)
+        this.textarea.focus();
+    }
   }
 
   setFormRef(form) {
