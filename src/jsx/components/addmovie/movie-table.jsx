@@ -7,7 +7,7 @@ export class MovieTable extends Component{
     var rows = [];
     if(this.props.movies){
       this.props.movies.forEach( movie => {
-        rows.push( <MovieRow {...movie} key={movie.id} api_data={movie} />)
+        rows.push( <MovieRow {...movie} key={movie.id} />)
       });
     }
 

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import moment from 'moment';
 import { firebaseConnect, dataToJS } from 'react-redux-firebase'
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 class MovieRow extends Component {
   constructor(props) {
@@ -26,13 +27,23 @@ class MovieRow extends Component {
 
     // assume that the week will be stored in firebase a string, make it sortable in string format!
     const current_year_week = moment().format('YYYY-ww'); // YYYY = 1970 1971 ... 2029 2030, ww = 01 02 ... 52 53
-    const { api_data } = this.props;
 
-    const movieObj = {year_week: current_year_week, api_data};
-    console.dir(movieObj);
+    axios({
+      method: 'get',
+      url: 'https://api.themoviedb.org/3/movie/' + this.props.id,
+      params:{
+        api_key: 'a4eb585b085da1972100342a6d21c935',
+        append_to_response: 'credits'
+      }
+    }).then(response => {
+      const { api_data } = response;
+      const movieObj = {year_week: current_year_week, api_data: response};
+    });
   }
 
   render() {
+    // see https://developers.themoviedb.org/3/search/search-movies (response schema.results) to see what props are available
+
     const src = "http://image.tmdb.org/t/p/w92" + this.props.poster_path;
     return(
       <li className='add-movie-results__item'>
