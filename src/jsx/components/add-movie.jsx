@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {Search} from './addmovie/search.jsx';
-import {MovieTable} from './addmovie/movie-table.jsx'
+import MovieTable from './addmovie/movie-table.jsx'
 
 export class AddMovie extends Component{
   constructor() {
@@ -21,7 +21,7 @@ export class AddMovie extends Component{
   	return(
   	  <div className='add-movie-container'>
     		<Search handleSearch={this.handleSearch} />
-    		<MovieTable movies={this.state.searchResults.results} />
+    		<MovieTable searchResults={this.state.searchResults.results} />
   	  </div>
   	);
   }
