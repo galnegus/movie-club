@@ -1,62 +1,36 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import { firebaseConnect, isLoaded, isEmpty, dataToJS } from 'react-redux-firebase';
+import { connect } from 'react-redux';
+import moment from 'moment';
+import {WatchedRow} from './watched-row.jsx';
 
-export class Watched extends Component{
+class Watched extends Component{
   render(){
+    const { movies } = this.props;
+    let rows = [];
+    const current_year_week = moment().format('YYYY-ww'); // YYYY = 1970 1971 ... 2029 2030, ww = 01 02 ... 52 53
+    if(isLoaded(movies)){
+        Object.keys(movies).map( key => {
+            if(movies[key].year_week < current_year_week){
+               rows.push(<WatchedRow {...movies[key].api_data} key={movies[key].api_data.id}  year_week={movies[key].year_week} />)
+            }
+        });
+    }
     return(
       <div className='sidebar-menu'>
         <div className='sidebar-menu__heading'>Watched movies</div>
         <ul className='sidebar-menu__list'>
-          <li className='sidebar-menu__item'>
-            <a href='#'>
-              <div className='sidebar-movie'>
-                <div className='sidebar-movie__image-container'>
-                  <img src='http://image.tmdb.org/t/p/w342/ChTLC17F4nIjA7jP4F6QX9A8FJ.jpg' />
-                </div>
-                <div className='sidebar-movie__info'>
-                  <div className='sidebar-movie__title'>Ginger Snaps</div>
-                  <div className='sidebar-movie__week'>Week XX</div>
-                </div>
-              </div>
-            </a>
-          </li>
-          <li className='sidebar-menu__item'>
-            <a href='#'>
-              <div className='sidebar-movie'>
-                <div className='sidebar-movie__image-container'>
-                  <img src='http://image.tmdb.org/t/p/w342/ChTLC17F4nIjA7jP4F6QX9A8FJ.jpg' />
-                </div>
-                <div className='sidebar-movie__info'>
-                  <div className='sidebar-movie__title'>Ginger Snaps</div>
-                  <div className='sidebar-movie__week'>Week XX</div>
-                </div>
-              </div>
-            </a>
-          </li>
-          <li className='sidebar-menu__item'>
-            <a href='#'>
-              <div className='sidebar-movie'>
-                <span className='typcn typcn-film sidebar-movie__icon' />
-                <div className='sidebar-movie__info'>
-                  <div className='sidebar-movie__title'>Ginger Snaps</div>
-                  <div className='sidebar-movie__week'>Week YY</div>
-                </div>
-              </div>
-            </a>
-          </li>
-          <li className='sidebar-menu__item'>
-            <a href='#'>
-              <div className='sidebar-movie'>
-                <span className='typcn typcn-film sidebar-movie__icon' />
-                <div className='sidebar-movie__info'>
-                  <div className='sidebar-movie__title'>Ginger Snaps</div>
-                  <div className='sidebar-movie__week'>Week YY</div>
-                </div>
-              </div>
-            </a>
-          </li>
+            {rows}
         </ul>
       </div>
     );
   }
 }
+
+const wrappedWatched = firebaseConnect([
+  { path: '/movies', queryParams: [ 'orderByChild=year_week' ] }
+])(Watched);
+export default connect(({ firebase }) => ({
+  movies: dataToJS(firebase, 'movies'),
+}))(wrappedWatched);
