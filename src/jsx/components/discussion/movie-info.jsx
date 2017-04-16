@@ -9,9 +9,9 @@ export default class MovieInfo extends Component {
   render() {
     return (
       <div className='movie-info'>
-        <img src={this.props.info.poster_path} />
+        <img className='movie-info__poster' src={this.props.info.poster_path} />
         <div className='movie-info__content'>
-          <h4>{this.props.info.title + ' (' + this.datestring2year(this.props.info.release_date) + ')'}</h4>
+          <h3>{this.props.info.title} <small className='color-grey'>({this.datestring2year(this.props.info.release_date)})</small></h3>
           <p>{this.props.info.overview}</p>
         </div>
       </div>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import MovieInfo from './movie-info.jsx';
 import Comments from './comments.jsx';
 import AddComment from './add-comment.jsx';
+import MovieHeader from './MovieHeader.jsx';
 
 export class Discussion extends Component {
   constructor(props) {
@@ -37,7 +38,7 @@ export class Discussion extends Component {
 
   render() {
     const tempMovieInfo = {
-      poster_path: 'http://image.tmdb.org/t/p/w342/ChTLC17F4nIjA7jP4F6QX9A8FJ.jpg',
+      poster_path: 'http://image.tmdb.org/t/p/w185/ChTLC17F4nIjA7jP4F6QX9A8FJ.jpg',
       title: 'Ginger Snaps',
       overview: "The story of two outcast sisters, Ginger (Katharine Isabelle) and Brigitte (Emily Perkins), in the mindless suburban town of Bailey Downs. On the night of Ginger's first period, she is savagely attacked by a wild creature. Ginger's wounds miraculously heal but something is not quite right. Now Brigitte must save her sister and save herself.",
       release_date: '2000-08-01'
@@ -45,11 +46,13 @@ export class Discussion extends Component {
 
     return (
       <div className='discussion'>
-        <MovieInfo info={tempMovieInfo} />
+        <MovieHeader />
         <div className='discussion__content'>
+          <MovieInfo info={tempMovieInfo} />
+          <hr className='discussion-separator' />
           <Comments storeCommentsDiv={this.storeCommentsDiv} />
-          <AddComment resizeTextarea={this.resizeTextarea} />
         </div>
+        <AddComment resizeTextarea={this.resizeTextarea} />
       </div>
     );
   }

@@ -14,7 +14,7 @@ class AddComment extends Component {
     this.handleEnterKey = this.handleEnterKey.bind(this);
 
     this.state = {
-      buttonValue: 'Submit'
+      buttonValue: (<span className='typcn typcn-arrow-forward-outline' />)
     };
   }
 
@@ -69,7 +69,7 @@ class AddComment extends Component {
     } else {
       contents = (
         <form className='add-comment' onSubmit={this.onSubmit} ref={this.setFormRef}>
-          <textarea className='add-comment__input' ref={this.setTextareaRef} placeholder='Leave a comment' rows='1' onKeyDown={this.handleEnterKey} onInput={() => this.props.resizeTextarea(this.textarea)} />
+          <textarea className='add-comment__input' ref={this.setTextareaRef} placeholder='Leave a comment' rows='2' onKeyDown={this.handleEnterKey} onInput={() => this.props.resizeTextarea(this.textarea)} />
           <button className='add-comment__submit' type='submit'>{this.state.buttonValue}</button>
         </form>
       );
