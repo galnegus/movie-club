@@ -47,10 +47,12 @@ export class Discussion extends Component {
     return (
       <div className='discussion'>
         <MovieHeader />
-        <div className='discussion__content'>
-          <MovieInfo info={tempMovieInfo} />
-          <hr className='discussion-separator' />
-          <Comments storeCommentsDiv={this.storeCommentsDiv} />
+        <div className='discussion__content-scroll'>
+          <div className='discussion__content'>
+            <MovieInfo info={tempMovieInfo} />
+            <hr className='discussion-separator' />
+            <Comments storeCommentsDiv={this.storeCommentsDiv} />
+          </div>
         </div>
         <AddComment resizeTextarea={this.resizeTextarea} />
       </div>

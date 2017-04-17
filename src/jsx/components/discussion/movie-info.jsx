@@ -12,6 +12,9 @@ export default class MovieInfo extends Component {
         <img className='movie-info__poster' src={this.props.info.poster_path} />
         <div className='movie-info__content'>
           <h3>{this.props.info.title} <small className='color-grey'>({this.datestring2year(this.props.info.release_date)})</small></h3>
+          <p>1h 48m | Horror, Comedy, Drama</p>
+          <p><strong>Director:</strong> John Fawcett</p>
+          <p><strong>Stars:</strong> Katharine Isabelle, Emily Perkins</p>
           <p>{this.props.info.overview}</p>
         </div>
       </div>

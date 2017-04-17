@@ -7,9 +7,14 @@
   flex-direction: column;
 }
 
-.discussion__content {
+.discussion__content-scroll {
   flex-grow: 1;
   overflow-y: auto;
+}
+
+.discussion__content {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .discussion-separator {
@@ -67,7 +72,7 @@
 }
 
 .comment {
-  margin: 10px 0;
+  margin: 20px 0;
   //max-width: 500px; // should be about 65 characters per line?
 
   &:first-child {
