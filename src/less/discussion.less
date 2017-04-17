@@ -68,6 +68,7 @@
 
 .comment {
   margin: 10px 0;
+  max-width: 500px; // should be about 65 characters per line?
 
   &:first-child {
     margin-top: 0;
@@ -90,7 +91,11 @@
 }
 
 .comment__text {
-  margin: 0;
+  margin: 5px 0;
+  padding: 5px;
+  background: #fff;
+  border: 1px solid @border-color;
+  border-radius: 3px;
 }
 
 .add-comment-container {
