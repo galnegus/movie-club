@@ -14,7 +14,7 @@ export class WatchedRow extends Component {
                     </div>
                     <div className='sidebar-movie__info'>
                         <div className='sidebar-movie__title'>{this.props.title}</div>
-                        <div className='sidebar-movie__week'>Week {this.props.year_week.substring(5)}</div>
+                        <div className='sidebar-movie__week'>Week {parseInt(this.props.year_week.substring(5))}</div>
                     </div>
                 </div>
             </Link>
