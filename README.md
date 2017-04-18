@@ -1,4 +1,4 @@
-#movie-club
+# movie-club
 
 To run this project you first need to have Node installed.
 
@@ -10,20 +10,20 @@ To run this project you first need to have Node installed.
 
 The websites currently does not have any system for creating user accounts, we have prepared 3 accounts for testing purposes (additional accounts can be created via the Firebase console by us):
 
-**Admin**
-*email:* admin@admin.com
-*password:* 123456
-*role:* Admin
-
-**Wow**
-*email:* wow@wow.com
-*password:* 123456
-*role:* Member
-
-**Cool**
-*email:* cool@cool.com
-*password:* 123456
-*role:* Member
+**Admin**  
+*email:* admin@admin.com  
+*password:* 123456  
+*role:* Admin  
+  
+**Wow**  
+*email:* wow@wow.com  
+*password:* 123456  
+*role:* Member  
+  
+**Cool**  
+*email:* cool@cool.com  
+*password:* 123456  
+*role:* Member  
 
 mockups:
 ---------
