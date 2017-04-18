@@ -40,6 +40,7 @@ class Comments extends Component {
           if (a.date > b.date) return 1;
           return 0;
         })
+        .filter(comment => comment.movieid === this.props.movieID)
         .map(comment => (<Comment commentData={comment} key={comment.date} />));
     }
 

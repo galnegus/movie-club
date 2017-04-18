@@ -3,8 +3,11 @@ import MovieInfo from './movie-info.jsx';
 import Comments from './comments.jsx';
 import AddComment from './add-comment.jsx';
 import MovieHeader from './MovieHeader.jsx';
+import { connect } from 'react-redux';
+import { firebaseConnect, pathToJS, isLoaded, isEmpty, dataToJS } from 'react-redux-firebase';
+import moment from 'moment';
 
-export class Discussion extends Component {
+class Discussion extends Component {
   constructor(props) {
     super(props);
 
@@ -37,25 +40,38 @@ export class Discussion extends Component {
   }
 
   render() {
-    const tempMovieInfo = {
-      poster_path: 'http://image.tmdb.org/t/p/w154/ChTLC17F4nIjA7jP4F6QX9A8FJ.jpg',
-      title: 'Ginger Snaps',
-      overview: "The story of two outcast sisters, Ginger (Katharine Isabelle) and Brigitte (Emily Perkins), in the mindless suburban town of Bailey Downs. On the night of Ginger's first period, she is savagely attacked by a wild creature. Ginger's wounds miraculously heal but something is not quite right. Now Brigitte must save her sister and save herself.",
-      release_date: '2000-08-01'
-    };
+    const { movies } = this.props;
+    let movieID;
+    if(isLoaded(movies)){
+        if(!this.props.location.pathname.substring(1)){
+            const current_year_week = moment().format('YYYY-ww');
+            movieID = Object.keys(movies).find( key => movies[key].year_week === current_year_week);
+        }else{
+            movieID = Object.keys(movies).find( key => movies[key].year_week === this.props.location.pathname.substring(1));
+        }
+    }
+
 
     return (
       <div className='discussion'>
         <MovieHeader />
         <div className='discussion__content-scroll'>
           <div className='discussion__content'>
-            <MovieInfo info={tempMovieInfo} />
+            <MovieInfo movieID={movieID}  />
             <hr className='discussion-separator' />
-            <Comments storeCommentsDiv={this.storeCommentsDiv} />
+            <Comments movieID={movieID} storeCommentsDiv={this.storeCommentsDiv} />
           </div>
         </div>
-        <AddComment resizeTextarea={this.resizeTextarea} />
+        <AddComment movieID={movieID} resizeTextarea={this.resizeTextarea} />
       </div>
     );
   }
 }
+
+const wrappeddiscussion = firebaseConnect([
+  { path: '/movies' } 
+])(Discussion);
+export default connect(({ firebase }) => ({
+  movies: dataToJS(firebase, 'movies'),
+}))(wrappeddiscussion);
+
