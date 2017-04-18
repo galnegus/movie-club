@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import {Link} from 'react-router-dom';
 
 export class WatchedRow extends Component {
   render() {
     const img_src = "http://image.tmdb.org/t/p/w92" + this.props.poster_path;
     return(
         <li className='sidebar-menu__item'>
-            <a href='#'>
+            <Link to={"/discussion/"+this.props.year_week}>
                 <div className='sidebar-movie'>
                     <div className='sidebar-movie__image-container'>
                         <img src={img_src} />
@@ -16,7 +17,7 @@ export class WatchedRow extends Component {
                         <div className='sidebar-movie__week'>Week {this.props.year_week.substring(5)}</div>
                     </div>
                 </div>
-            </a>
+            </Link>
         </li>
     );
   }
