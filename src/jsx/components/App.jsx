@@ -25,10 +25,9 @@ class App extends Component {
         <Sidebar />
         <div className='content'>
           <Route exact path='/' component={Discussion} />
-          <Route path='/:yearweek' component={Discussion} />
           <Route path='/schedule' component={Schedule} />
           <Route path='/addmovie' component={AddMovie} />
-          
+          <Route path='/discussion/:yearweek' component={Discussion} />
         </div>
         {overlay}
       </div>

@@ -7,7 +7,7 @@ export class WatchedRow extends Component {
     const img_src = "http://image.tmdb.org/t/p/w92" + this.props.poster_path;
     return(
         <li className='sidebar-menu__item'>
-            <Link to={"/"+this.props.year_week}>
+            <Link to={"/discussion/"+this.props.year_week}>
                 <div className='sidebar-movie'>
                     <div className='sidebar-movie__image-container'>
                         <img src={img_src} />
