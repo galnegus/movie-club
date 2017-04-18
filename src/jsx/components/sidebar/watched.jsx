@@ -9,14 +9,25 @@ class Watched extends Component{
   render(){
     const { movies } = this.props;
     let rows = [];
+    let sortedMovies;
     const current_year_week = moment().format('YYYY-ww'); // YYYY = 1970 1971 ... 2029 2030, ww = 01 02 ... 52 53
     if(isLoaded(movies)){
-        Object.keys(movies).map( key => {
-            if(movies[key].year_week < current_year_week){
-               rows.push(<WatchedRow {...movies[key].api_data} key={movies[key].api_data.id}  year_week={movies[key].year_week} />)
+        sortedMovies = Object.keys(movies)
+          .map(key => movies[key])
+          .sort((a, b) => {
+            if (a.year_week < b.year_week) return 1;
+            if (a.year_week > b.year_week) return -1;
+            return 0;
+          })
+        Object.keys(sortedMovies).map( key => {
+            if(sortedMovies[key].year_week < current_year_week){
+               rows.push(<WatchedRow {...sortedMovies[key].api_data} 
+                                      key={sortedMovies[key].api_data.id}  
+                                      year_week={sortedMovies[key].year_week} />)
             }
         });
     }
+
     return(
       <div className='sidebar-menu'>
         <div className='sidebar-menu__heading'>Watched movies</div>
