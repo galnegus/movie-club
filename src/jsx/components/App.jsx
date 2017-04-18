@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route } from 'react-router-dom';
 import { Sidebar } from './sidebar.jsx';
-import { Discussion } from './discussion/discussion.jsx';
+import Discussion from './discussion/discussion.jsx';
 import Schedule from './schedule.jsx';
 import { AddMovie } from './add-movie.jsx';
 import LoadingOverlay from './LoadingOverlay.jsx';
@@ -25,8 +25,10 @@ class App extends Component {
         <Sidebar />
         <div className='content'>
           <Route exact path='/' component={Discussion} />
+          <Route path='/:yearweek' component={Discussion} />
           <Route path='/schedule' component={Schedule} />
           <Route path='/addmovie' component={AddMovie} />
+          
         </div>
         {overlay}
       </div>

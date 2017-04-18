@@ -42,7 +42,8 @@ class AddComment extends Component {
     this.props.firebase.push('/comments', { 
       author: profile.username,
       text: this.textarea.value,
-      date: moment().format()
+      date: moment().format(),
+      movieid: this.props.movieID
     }).then(() => {
       this.setState({ buttonValue: oldButtonValue });
     });
