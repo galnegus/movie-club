@@ -14,10 +14,12 @@ export default class MovieInfo extends Component {
 
     return (
       <div className='movie-info'>
-        <img className='movie-info__poster' src={img_src} />
+        <div className='movie-info__poster-container'>
+          <img className='movie-info__poster' src={img_src} />
+        </div>
         <div className='movie-info__content'>
           <h3>{this.props.api_data.title} <small className='color-grey'>({this.datestring2year(this.props.api_data.release_date)})</small></h3>
-          <p className='color-grey'>1h 48m | Horror, Comedy, Drama</p>
+          <p><span className='color-grey'>1h 48m</span> | <span className='color-grey'>Horror, Comedy, Drama</span></p>
           <p><strong>Director:</strong> John Fawcett</p>
           <p><strong>Stars:</strong> Katharine Isabelle, Emily Perkins</p>
           <p>{this.props.api_data.overview}</p>
