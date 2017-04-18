@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import moment from 'moment';
-// import { connect } from 'react-redux';
-// import { firebaseConnect, pathToJS, isLoaded, isEmpty, dataToJS } from 'react-redux-firebase';
 
 export default class MovieHeader extends Component {
   // the datestring is formatted like YYYY-MM-DD and we only want YYYY.
@@ -10,12 +8,6 @@ export default class MovieHeader extends Component {
   }
 
   render() {
-    // const { comments } = this.props;
-  	// console.log("this.props.info = ", this.props.info)
-  	// console.log("comments = ", comments)
-   //  if(isLoaded(comments)){
-   //  	comments.
-   //  }
   	const current_year_week = moment().format('YYYY-ww');
   	const current_week = (current_year_week === this.props.info.year_week) ? "(current week)" : null;
     return (
@@ -27,10 +19,3 @@ export default class MovieHeader extends Component {
     );
   }
 }
-
-// const wrappedmovieheader = firebaseConnect([
-//   { path: '/comments' } 
-// ])(MovieHeader);
-// export default connect(({ firebase }) => ({
-//   comments: dataToJS(firebase, 'comments'),
-// }))(wrappedmovieheader);
