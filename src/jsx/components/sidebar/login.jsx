@@ -34,12 +34,12 @@ class Login extends Component{
   }
 
   // after logging out we have to reload the page because logging out causes all of the existing firebase data in the store to be removed (for some reason),
-  // this appears to be a bug with the react-redux-firebase plugin, so our quick fix is to just reload the page!
+  // this appears to be a bug with the react-redux-firebase plugin, so our quick fix is to just reload or redirect the page!
   // see: https://github.com/prescottprue/react-redux-firebase/issues/93
   logout(e) {
     e.preventDefault();
     this.props.firebase.logout();
-    window.location.reload(false);
+    window.location.href = '/';
   }
 
   setEmailRef(input) {
