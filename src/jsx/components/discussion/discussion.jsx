@@ -94,7 +94,7 @@ class Discussion extends Component {
         <MovieHeader info={movie} numberOfComments={commentList.length} />
         <div className='discussion__content-scroll'>
           <div className='discussion__content'>
-            <MovieInfo info={movie}  />
+            <MovieInfo {...movie}  />
             <hr className='discussion-separator' />
             <Comments commentList={commentList}  storeCommentsDiv={this.storeCommentsDiv} />
           </div>
