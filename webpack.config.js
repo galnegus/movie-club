@@ -4,7 +4,8 @@ module.exports = {
   entry: './src/jsx/index.jsx',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
   },
   devtool: 'eval-source-map',
   module: {
@@ -20,12 +21,12 @@ module.exports = {
     },
     {
       test: /\.(eot|woff|svg|ttf)?$/,
-      loader: 'file-loader'
+      loader: 'url-loader'
     }]
   },
   devServer: {
     historyApiFallback: {
-      index: 'index.html'
+      index: '/index.html'
     }
   }
 };

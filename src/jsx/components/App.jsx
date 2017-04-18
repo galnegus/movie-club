@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import { withRouter, Route } from 'react-router-dom';
 import { Sidebar } from './sidebar.jsx';
 import { Discussion } from './discussion/discussion.jsx';
-import Schedule from './schedule.jsx';
-import { AddMovie } from './add-movie.jsx';
+import Schedule from './schedule/Schedule.jsx';
+import { AddMovie } from './add-movie/AddMovie.jsx';
 import LoadingOverlay from './LoadingOverlay.jsx';
+import Notifications from 'react-notification-system-redux';
+import notificationStyle from './notification-style';
 
 class App extends Component {
   render() {
-    const { isLoading, history } = this.props;
+    const { isLoading, history, notifications } = this.props;
     let overlay;
 
     const doneLoadingSidebar = !isLoading.sidebar;
@@ -26,16 +28,20 @@ class App extends Component {
         <div className='content'>
           <Route exact path='/' component={Discussion} />
           <Route path='/schedule' component={Schedule} />
-          <Route path='/addmovie' component={AddMovie} />
+          <Route path='/add-movie/:yearWeek' component={AddMovie} />
         </div>
         {overlay}
+        <Notifications notifications={notifications} style={notificationStyle} />
       </div>
     );
   }
 }
 
 export default withRouter(connect(
-  ({ isLoading }) => {
-    return {isLoading: isLoading}
+  ({ isLoading, notifications }) => {
+    return {
+      isLoading,
+      notifications
+    }
   }
 )(App));

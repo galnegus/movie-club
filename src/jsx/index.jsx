@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import {BrowserRouter as Router} from 'react-router-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import '../less/main.less';
-import store from './store.jsx';
+import store from './store';
 import App from  './components/App.jsx';
 
 // Needed for onTouchTap

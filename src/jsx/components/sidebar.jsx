@@ -7,11 +7,9 @@ export class Sidebar extends Component {
   render() {
   	return (
   	  <div className='sidebar'>
-        {/*
         <h3 className='sidebar-title'>
           <Link to='/'>MOVIECLUB</Link>
         </h3>
-        */}
         <Login />
         <div>
           <Watched />

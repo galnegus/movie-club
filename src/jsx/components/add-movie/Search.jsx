@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-export class Search extends Component{
+export default class Search extends Component{
   constructor() {
     super();
     this.state = {

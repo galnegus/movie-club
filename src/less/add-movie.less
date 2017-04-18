@@ -1,3 +1,9 @@
+.add-movie-header {
+  background: #fff;
+  padding: 20px 20px 10px 40px;
+  border-bottom: 1px solid @border-color;
+}
+
 .add-movie-container {
   padding: 20px;
 }
@@ -10,13 +16,14 @@
   width: 100%;
   padding: 14px;
   font-size: 1.414em;
-  #BoxShadowHelper(1);
+  //#BoxShadowHelper(1);
 }
 
 .add-movie-search__button {
   position: absolute;
   top: 1px;
   right: 0;
+  background: none;
 
   padding: 11px 15px;
   font-size: 2em;
@@ -46,6 +53,10 @@
   clear: both;
 }
 
+.add-movie-results__item--added {
+  opacity: 0.4;
+}
+
 .add-movie-results__image {
   float: left;
   #BoxShadowHelper(1);
@@ -56,7 +67,7 @@
   min-height: @add-movie-poster-height;
   background: #fff;
   //#BoxShadowHelper(1);
-  border: 1px solid #e6e6e6;
+  border: 1px solid @border-color;
 }
 
 .add-movie-results__info {
@@ -68,21 +79,25 @@
 
 }
 
-.add-movie-results__button {
-  //display: block;
+.add-movie-results__tick, .add-movie-results__button {
   float: right;
   font-size: 3em;
-  //line-height: @add-movie-poster-height;
-  border-left: 1px solid #e6e6e6;
-  padding: 0 20px;
+  padding: 0 40px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.add-movie-results__tick {
+}
+
+.add-movie-results__button {
+  border-left: 1px solid #e6e6e6;
 
   &:hover {
-    background: #fcfcfc;
+    background: #fafafa;
     color: lighten(@text-color, 10%);
   }
 

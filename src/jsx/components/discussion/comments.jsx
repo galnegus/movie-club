@@ -29,7 +29,7 @@ class Comments extends Component {
 
     let commentList;
     if(!isLoaded(comments)){
-      commentList = (<div>Loading</div>);
+      commentList = (<div className='loader loader--small' />);
     } else if(isEmpty(comments)){
       commentList = (<div>There are no comments. Be the first one to add a comment!</div>);
     } else {

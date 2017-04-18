@@ -62,7 +62,13 @@ class AddComment extends Component {
     const { auth } = this.props;
 
     let contents;
-    if (!isLoaded(auth) || isEmpty(auth)) {
+    if (!isLoaded(auth)) {
+      contents = (
+        <div className='add-comment-denial'>
+          <div className='loader loader--small' />
+        </div>
+      );
+    } else if (isEmpty(auth)) {
       contents = (
         <p className='add-comment-denial'>Log in to participate in the discussion.</p>
       );

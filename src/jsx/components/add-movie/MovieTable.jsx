@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import MovieRow from './movie-row.jsx';
+import MovieRow from './MovieRow.jsx';
 import { firebaseConnect, isLoaded, isEmpty, dataToJS } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 
@@ -25,7 +25,7 @@ class MovieTable extends Component{
         rows = 'No movie was found'
       } else {      
         this.props.searchResults.forEach( movie => {
-          rows.push( <MovieRow {...movie} key={movie.id} addedMoviesID={addedMoviesID} />)
+          rows.push( <MovieRow {...movie} key={movie.id} addedMoviesID={addedMoviesID} yearWeek={this.props.yearWeek} />)
         });
       }
     }

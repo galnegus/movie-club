@@ -8,7 +8,6 @@ class Login extends Component{
   constructor(props) {
     super(props);
 
-
     this.login = this.login.bind(this);
     this.setEmailRef = this.setEmailRef.bind(this);
     this.setPasswordRef = this.setPasswordRef.bind(this);
@@ -54,74 +53,75 @@ class Login extends Component{
   render(){
     const { auth, profile } = this.props;
 
-    if (!isLoaded(auth)) {
-      return (
-        <p>LOADING AUTH</p>
-      );
-    }
+    const loader = <div className='loader loader--white loader--small' />;
 
-    if (!auth) { // not logged in
-      return(
-        <div>
-          <div className='sidebar-menu'>
-            <div className='sidebar-menu__heading'>Actions</div>
-            <ul className='sidebar-menu__list'>
-              <li className='sidebar-menu__item'>
-                <Link to="/"><span className='typcn typcn-messages' />Read the discussion</Link>
-              </li>
-            </ul>
-          </div>
-          <div className='sidebar-menu'>
-            <div className='sidebar-menu__heading'>Log in</div>
-            <form className='login-form' onSubmit={this.login}>
-              <input className='login-form__email' type="text" placeholder="Email" ref={this.setEmailRef} />
-              <input className='login-form__password' type="password" placeholder="Password" ref={this.setPasswordRef} />
-              <button className='login-form__button' type="submit">Login</button>
-            </form>
-          </div>
+    const guest = (
+      <div>
+        <div className='sidebar-menu'>
+          <div className='sidebar-menu__heading'>Actions</div>
+          <ul className='sidebar-menu__list'>
+            <li className='sidebar-menu__item'>
+              <Link to="/"><span className='typcn typcn-messages' />Read the discussion</Link>
+            </li>
+          </ul>
         </div>
-      );
-    } else { // logged in
-      if (!isLoaded(profile) || isEmpty(profile)) return (<p>LOADING PROFILE</p>); // make this look prettier
+        <div className='sidebar-menu'>
+          <div className='sidebar-menu__heading'>Log in</div>
+          <form className='login-form' onSubmit={this.login}>
+            <input className='login-form__email' type="text" placeholder="Email" ref={this.setEmailRef} />
+            <input className='login-form__password' type="password" placeholder="Password" ref={this.setPasswordRef} />
+            <button className='login-form__button' type="submit">Login</button>
+          </form>
+        </div>
+      </div>
+    );
 
-      if (profile.role === 'admin') {
-        return(
-          <div className='sidebar-menu'>
-            <div className='sidebar-menu__heading'>Actions</div>
-            <ul className='sidebar-menu__list'>
-              <li className='sidebar-menu__item'>
-                <Link to="/"><span className='typcn typcn-messages' />Discuss</Link>
-              </li>
-              <li className='sidebar-menu__item'>
-                <Link to="/addmovie"><span className='typcn typcn-plus' />Add movie</Link>
-              </li>
-              <li className='sidebar-menu__item'>
-                <Link to="/schedule"><span className='typcn typcn-calendar' />Check schedule</Link>
-              </li>
-              <li className='sidebar-menu__item'>
-                <a href="#" onClick={this.logout}><span className='typcn typcn-eject' />Log out</a>
-              </li>
-            </ul>
-          </div>
-        );
-      } else if (profile.role === 'member') {
-        return(
-          <div className='sidebar-menu'>
-            <div className='sidebar-menu__heading'>Actions</div>
-            <ul className='sidebar-menu__list'>
-              <li className='sidebar-menu__item'>
-                <Link to="/"><span className='typcn typcn-messages' />Discuss</Link>
-              </li>
-              <li className='sidebar-menu__item'>
-                <a href="#" onClick={this.logout}><span className='typcn typcn-eject' />Log out</a>
-              </li>
-            </ul>
-          </div>
-        );
-      } else { // unknown role?
-        return (<p>Who is this?</p>);
-      }
-    }
+    const admin = (
+      <div className='sidebar-menu'>
+        <div className='sidebar-menu__heading'>Actions</div>
+        <ul className='sidebar-menu__list'>
+          <li className='sidebar-menu__item'>
+            <Link to="/"><span className='typcn typcn-messages' />Discuss</Link>
+          </li>{/*
+          <li className='sidebar-menu__item'>
+            <Link to="/add-movie"><span className='typcn typcn-plus' />Add movie</Link>
+          </li>*/}
+          <li className='sidebar-menu__item'>
+            <Link to="/schedule"><span className='typcn typcn-calendar' />Check schedule</Link>
+          </li>
+          <li className='sidebar-menu__item'>
+            <a href="#" onClick={this.logout}><span className='typcn typcn-eject' />Log out</a>
+          </li>
+        </ul>
+      </div>
+    );
+
+    const member = (
+      <div className='sidebar-menu'>
+        <div className='sidebar-menu__heading'>Actions</div>
+        <ul className='sidebar-menu__list'>
+          <li className='sidebar-menu__item'>
+            <Link to="/"><span className='typcn typcn-messages' />Discuss</Link>
+          </li>
+          <li className='sidebar-menu__item'>
+            <a href="#" onClick={this.logout}><span className='typcn typcn-eject' />Log out</a>
+          </li>
+        </ul>
+      </div>
+    );
+
+    if (!isLoaded(auth))
+      return loader;
+    else if (!auth) // not logged in
+      return guest;
+    else if (!isLoaded(profile) || isEmpty(profile))
+      return loader;
+    else if (profile.role === 'admin')
+      return admin;
+    else if (profile.role === 'member')
+      return member;
+    else// unknown role?
+      return (<p>Who is this?</p>);
   }
 }
 
