@@ -74,7 +74,7 @@ class Discussion extends Component {
     if(!isLoaded(comments)){
       commentList = (<div>Loading</div>);
     } else if(isEmpty(comments)){
-      commentList = (<div>There are no comments. Be the first one to add a comment!</div>);
+      commentList = (<div>There are no comments.</div>);
     } else {
       commentList = Object.keys(comments)
         .map(key => comments[key])
@@ -87,9 +87,14 @@ class Discussion extends Component {
         .map(comment => (<Comment commentData={comment} key={comment.date} />));
     }
 
+    const nComments = commentList.length;
+
+    if (nComments === 0)
+      commentList = (<div>There are no comments.</div>);
+
     return (
       <div className='discussion'>
-        <MovieHeader info={movie} numberOfComments={commentList.length} />
+        <MovieHeader info={movie} numberOfComments={nComments} />
         <div className='discussion__content-scroll'>
           <div className='discussion__content'>
             <MovieInfo {...movie}  />
