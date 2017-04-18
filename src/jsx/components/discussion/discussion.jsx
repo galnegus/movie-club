@@ -55,20 +55,26 @@ class Discussion extends Component {
     let commentList;
 
 
-    if(isLoaded(movies)){
-        if(!this.props.location.pathname.substring(1)){
-            const current_year_week = moment().format('YYYY-ww');
-            movieID = Object.keys(movies).find( key => movies[key].year_week === current_year_week);
-        }else{
-            movieID = Object.keys(movies).find( key => movies[key].year_week === this.props.location.pathname.substring(12));
-        }
-        
-        Object.keys(movies).forEach( key => {
-            if (key === movieID){
-                movie = movies[key];
-            }
-        });
+    if(!isLoaded(movies)){
+      return(
+            <div>
+                wait....
+            </div>
+        );
+    }
 
+    if(!this.props.location.pathname.substring(1)){
+        const current_year_week = moment().format('YYYY-ww');
+        movieID = Object.keys(movies).find( key => movies[key].year_week === current_year_week);
+    }else{
+        movieID = Object.keys(movies).find( key => movies[key].year_week === this.props.location.pathname.substring(12));
+    }
+    
+    Object.keys(movies).forEach( key => {
+        if (key === movieID){
+            movie = movies[key];
+        }
+    });
 
     if(!isLoaded(comments)){
       commentList = (<div>Loading</div>);
@@ -86,26 +92,19 @@ class Discussion extends Component {
         .map(comment => (<Comment commentData={comment} key={comment.date} />));
     }
 
-        return (
-          <div className='discussion'>
-            <MovieHeader info={movie} numberOfComments={commentList.length} />
-            <div className='discussion__content-scroll'>
-              <div className='discussion__content'>
-                <MovieInfo info={movie}  />
-                <hr className='discussion-separator' />
-                <Comments commentList={commentList}  storeCommentsDiv={this.storeCommentsDiv} />
-              </div>
-            </div>
-            <AddComment movieID={movieID} resizeTextarea={this.resizeTextarea} />
+    return (
+      <div className='discussion'>
+        <MovieHeader info={movie} numberOfComments={commentList.length} />
+        <div className='discussion__content-scroll'>
+          <div className='discussion__content'>
+            <MovieInfo info={movie}  />
+            <hr className='discussion-separator' />
+            <Comments commentList={commentList}  storeCommentsDiv={this.storeCommentsDiv} />
           </div>
-        );
-    }else{
-        return(
-            <div>
-                wait....
-            </div>
-        );
-    }
+        </div>
+        <AddComment movieID={movieID} resizeTextarea={this.resizeTextarea} />
+      </div>
+    );
   }
 }
 

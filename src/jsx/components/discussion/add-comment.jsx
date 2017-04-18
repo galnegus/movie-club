@@ -18,14 +18,6 @@ class AddComment extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (isLoaded(nextProps.auth)) {
-      nextProps.dispatchIsLoadingAddComment(false);
-      if (this.textarea)
-        this.textarea.focus();
-    }
-  }
-
   setFormRef(form) {
     this.form = form;
   }
@@ -95,8 +87,6 @@ export default connect(
   ({ firebase }) => ({
     auth: pathToJS(firebase, 'auth'),
     profile: pathToJS(firebase, 'profile')
-  }), dispatch => ({
-    dispatchIsLoadingAddComment: (value) => dispatch(isLoadingAddComment(value))
   })
 )(wrappedAddComment);
 

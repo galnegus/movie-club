@@ -16,7 +16,6 @@ export default class MovieHeader extends Component {
    //  if(isLoaded(comments)){
    //  	comments.
    //  }
-
   	const current_year_week = moment().format('YYYY-ww');
   	const current_week = (current_year_week === this.props.info.year_week) ? "(current week)" : null;
     return (

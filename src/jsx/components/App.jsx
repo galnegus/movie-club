@@ -15,7 +15,7 @@ class App extends Component {
     let overlay;
 
     const doneLoadingSidebar = !isLoading.sidebar;
-    const doneLoadingDiscussion = !isLoading.comments && !isLoading.addComment;
+    const doneLoadingDiscussion = !isLoading.comments;
     if ((history.location.pathname === '/' && doneLoadingSidebar && doneLoadingDiscussion)
       || history.location.pathname !== '/' && doneLoadingSidebar)
       overlay = '';
