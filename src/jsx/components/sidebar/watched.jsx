@@ -19,18 +19,18 @@ class Watched extends Component{
             if (a.year_week > b.year_week) return -1;
             return 0;
           })
+          .filter(movie => movie.year_week < current_year_week)
+          .slice(0, 5);
         Object.keys(sortedMovies).map( key => {
-            if(sortedMovies[key].year_week < current_year_week){
-               rows.push(<WatchedRow {...sortedMovies[key].api_data} 
-                                      key={sortedMovies[key].api_data.id}  
-                                      year_week={sortedMovies[key].year_week} />)
-            }
+           rows.push(<WatchedRow {...sortedMovies[key].api_data} 
+                                  key={sortedMovies[key].api_data.id}  
+                                  year_week={sortedMovies[key].year_week} />)
         });
     }
 
     return(
       <div className='sidebar-menu'>
-        <div className='sidebar-menu__heading'>Watched movies</div>
+        <div className='sidebar-menu__heading'>5 last movies</div>
         <ul className='sidebar-menu__list'>
             {rows}
         </ul>
@@ -40,7 +40,7 @@ class Watched extends Component{
 }
 
 const wrappedWatched = firebaseConnect([
-  { path: '/movies', queryParams: [ 'orderByChild=year_week' ] }
+  '/movies'
 ])(Watched);
 export default connect(({ firebase }) => ({
   movies: dataToJS(firebase, 'movies'),

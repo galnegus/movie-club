@@ -6,7 +6,7 @@ import MovieHeader from './MovieHeader.jsx';
 import Comment from './comment.jsx';
 import { connect } from 'react-redux';
 import { firebaseConnect, pathToJS, isLoaded, isEmpty, dataToJS } from 'react-redux-firebase';
-import { isLoadingComments } from '../../actions';
+import { isLoadingDiscussion } from '../../actions';
 import moment from 'moment';
 
 class Discussion extends Component {
@@ -19,8 +19,8 @@ class Discussion extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (isLoaded(nextProps.comments))
-      nextProps.dispatchIsLoadingComments(false);
+    if (isLoaded(nextProps.comments) && isLoaded(nextProps.movies))
+      nextProps.dispatchIsLoadingDiscussion(false);
   }
 
   storeCommentsDiv(commentsDiv) {
@@ -54,10 +54,8 @@ class Discussion extends Component {
 
     if(!isLoaded(movies)){
       return(
-            <div>
-                wait....
-            </div>
-        );
+        <div className='loader loader--medium' />
+      );
     }
 
     if(!this.props.location.pathname.substring(1)){
@@ -99,7 +97,7 @@ class Discussion extends Component {
             <Comments commentList={commentList}  storeCommentsDiv={this.storeCommentsDiv} />
           </div>
         </div>
-        <AddComment movieID={movieID} resizeTextarea={this.resizeTextarea} />
+        <AddComment movieID={movieID} yearWeek={movie.year_week} resizeTextarea={this.resizeTextarea} />
       </div>
     );
   }
@@ -112,7 +110,7 @@ export default connect(({ firebase }) => ({
   movies: dataToJS(firebase, 'movies'),
   comments: dataToJS(firebase, 'comments'),
 }), dispatch => ({
-    dispatchIsLoadingComments: (value) => dispatch(isLoadingComments(value))
+    dispatchIsLoadingDiscussion: (value) => dispatch(isLoadingDiscussion(value))
   })
 )(wrappeddiscussion);
 

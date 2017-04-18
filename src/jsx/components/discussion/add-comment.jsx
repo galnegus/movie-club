@@ -19,7 +19,8 @@ class AddComment extends Component {
   }
 
   componentDidMount() {
-    this.textarea.focus();
+    if (this.textarea)
+      this.textarea.focus();
   }
 
   setFormRef(form) {
@@ -56,7 +57,7 @@ class AddComment extends Component {
   }
 
   render() {
-    const { auth } = this.props;
+    const { auth, yearWeek } = this.props;
 
     let contents;
     if (!isLoaded(auth)) {
@@ -69,6 +70,10 @@ class AddComment extends Component {
       contents = (
         <p className='add-comment-denial'>Log in to participate in the discussion.</p>
       );
+    } else if (yearWeek !== moment().format('YYYY-ww')) {
+      contents = (
+        <p className='add-comment-denial'>This discussion has been archived.</p>
+      );      
     } else {
       contents = (
         <form className='add-comment' onSubmit={this.onSubmit} ref={this.setFormRef}>

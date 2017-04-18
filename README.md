@@ -1,26 +1,30 @@
 #movie-club
 
-hello
+To run this project you first need to have Node installed.
 
-API
-----
+1. Run the `npm install` command in the `movie-club` folder to install the necessary packages.
 
-**API Key (v3 auth)**
-a4eb585b085da1972100342a6d21c935
+2. Launch the dev webserver with `npm start`.
 
+3. To access the website, visit `http://localhost:8080/` in your favorite (modern) browser.
 
-**API Read Access Token (v4 auth)**
-eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNGViNTg1YjA4NWRhMTk3MjEwMDM0MmE2ZDIxYzkzNSIsInN1YiI6IjU4ZGI3ZTg0YzNhMzY4N2QxZDAwOGNmYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.FDOp4OXa3Dm0K47CvyaShN0owClxwUBk-LLjEmiY5Kc
+The websites currently does not have any system for creating user accounts, we have prepared 3 accounts for testing purposes (additional accounts can be created via the Firebase console by us):
 
+**Admin**
+*email:* admin@admin.com
+*password:* 123456
+*role:* Admin
 
-**Example API Request**
-https://api.themoviedb.org/3/movie/550?api_key=a4eb585b085da1972100342a6d21c935
+**Wow**
+*email:* wow@wow.com
+*password:* 123456
+*role:* Member
 
+**Cool**
+*email:* cool@cool.com
+*password:* 123456
+*role:* Member
 
-mockup:
+mockups:
 ---------
 https://www.dropbox.com/s/yw1llolx12rfll6/mockups.pdf?dl=0
-
-
-dynamicweb
-DH2642

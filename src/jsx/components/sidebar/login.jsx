@@ -82,12 +82,9 @@ class Login extends Component{
         <ul className='sidebar-menu__list'>
           <li className='sidebar-menu__item'>
             <Link to="/"><span className='typcn typcn-messages' />Discuss</Link>
-          </li>{/*
+          </li>
           <li className='sidebar-menu__item'>
-            <Link to="/add-movie"><span className='typcn typcn-plus' />Add movie</Link>
-          </li>*/}
-          <li className='sidebar-menu__item'>
-            <Link to="/schedule"><span className='typcn typcn-calendar' />Check schedule</Link>
+            <Link to="/schedule"><span className='typcn typcn-calendar' />Schedule</Link>
           </li>
           <li className='sidebar-menu__item'>
             <a href="#" onClick={this.logout}><span className='typcn typcn-eject' />Log out</a>
