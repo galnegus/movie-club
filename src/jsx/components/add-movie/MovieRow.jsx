@@ -4,7 +4,7 @@ import moment from 'moment';
 import { firebaseConnect, dataToJS } from 'react-redux-firebase'
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router-dom';
 import Notifications from 'react-notification-system-redux';
 
 class MovieRow extends Component {
