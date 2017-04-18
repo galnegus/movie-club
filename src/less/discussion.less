@@ -15,10 +15,11 @@
 .discussion__content {
   max-width: 800px;
   margin: 0 auto;
+  //box-sizing: border-box;
+  padding: 0 20px;
 }
 
 .discussion-separator {
-  margin: 0 20px;
 }
 
 .movie-header {
@@ -47,7 +48,7 @@
 .movie-info {
   overflow-y: auto;
   z-index: 5;
-  padding: 20px;
+  padding: 20px 0;
 
   clear: both;
 
@@ -64,10 +65,13 @@
 }
 
 .movie-info__content {
+  p {
+    margin: 0.25em 0;
+  }
 }
 
 .comments {
-  padding: 20px;
+  padding: 20px 0;
   box-sizing: border-box;
 }
 
@@ -107,6 +111,7 @@
   #BoxShadowHelper(1);
   flex-shrink: 0;
   background: #fff;
+  padding: 0 10px;
 }
 
 // shown when user is not logged in
@@ -118,7 +123,8 @@
 
 .add-comment {
   background: #fff;
-  margin: 10px;
+  margin: 10px auto;
+  max-width: 800px;
   box-sizing: border-box;
   display: flex;
   align-items: stretch;
