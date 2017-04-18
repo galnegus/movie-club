@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import MovieInfo from './movie-info.jsx';
+import MovieInfo from './MovieInfo.jsx';
 import Comments from './comments.jsx';
 import AddComment from './add-comment.jsx';
 import MovieHeader from './MovieHeader.jsx';
@@ -25,9 +25,6 @@ class Discussion extends Component {
 
   storeCommentsDiv(commentsDiv) {
     this.setState({commentsDiv});
-
-    if (commentsDiv)
-      commentsDiv.scrollTop = commentsDiv.scrollHeight;
   }
 
   // resizes the AddComment textarea whenever the input event is triggered,

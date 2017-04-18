@@ -18,6 +18,10 @@ class AddComment extends Component {
     };
   }
 
+  componentDidMount() {
+    this.textarea.focus();
+  }
+
   setFormRef(form) {
     this.form = form;
   }
