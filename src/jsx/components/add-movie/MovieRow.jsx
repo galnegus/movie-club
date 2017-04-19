@@ -64,7 +64,7 @@ class MovieRow extends Component {
   render() {
     // redirect us back to the schedule after adding a movie
     if (this.state.isAdded)
-      return (<Redirect to='/schedule' />);
+      return (<Redirect to='/redirect' />);
 
     const { poster_path, id, alreadyAdded, title, release_date, overview } = this.props;
 
@@ -98,13 +98,9 @@ class MovieRow extends Component {
   }
 }
 
-const wrappedMovieRow = firebaseConnect([
-  { path: '/movies', queryParams: [ 'orderByChild=year_week' ] }
-])(MovieRow);
+const wrappedMovieRow = firebaseConnect()(MovieRow);
 
-export default connect(({ firebase }) => ({
-  movies: dataToJS(firebase, 'movies'),
-}), dispatch => ({
+export default connect(null, dispatch => ({
   notify: options => dispatch(Notifications.info(options)),
   notifyError: options => dispatch(Notifications.error(options))
 }))(wrappedMovieRow);
