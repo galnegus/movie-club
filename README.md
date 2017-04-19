@@ -29,7 +29,7 @@ bugs:
 -------
 1. There is currently a bug where the redux state is not updating after removing a movie from the schedule (a refresh is required to see the updated state). We have no idea why this occurs. We are using a library called react-redux-firebase that is supposed to manage the firebase state locally. For some reason it is not properly doing the removal after adding a movie. We've tried everything. For the most use cases, though, removing movies works just fine, (just not immediately after adding movies).
 
-2. Another react-redux-firebase problem: When logging out, the firebase state stored locally would be removed for some reason (and the not update). Again, this is a plugin problem that we have no control over. We've made a temporary fix by just setting location.window.href = '/'. The user will still logout, it just shows an extra loading screen now.
+2. Another react-redux-firebase problem: When logging out, the firebase state stored locally would be removed for some reason (and then never update again). Again, this is a plugin problem that we have no control over. We've made a temporary fix by just setting location.window.href = '/' after logging out. The user will still log out, it just forces a refresh now.
 
 mockups:
 ---------
