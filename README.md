@@ -27,7 +27,7 @@ The websites currently does not have any system for creating user accounts, we h
 
 bugs:
 -------
-1. There is currently a bug where the redux state is not updating when removing a movie from the schedule immediately after adding a movie (a refresh or leaving and re-entering the route is required to see the updated state). We have no idea why this occurs. We are using a library called react-redux-firebase that is supposed to manage the firebase state locally. For some reason it is not properly doing the removal after adding a movie. **We temporarily fixed this bug by redirect twice after adding a movie (*/add-movie -> /redirect -> /schedule*), for some reason this fixes the problem**.
+1. There is currently a bug where the redux state is not updating when removing a movie from the schedule immediately after adding a movie (a refresh or leaving and re-entering the route is required to see the updated state). We have no idea why this occurs. We are using a library called react-redux-firebase that is supposed to manage the firebase state locally. For some reason it is not properly doing the removal after adding a movie. **We temporarily fixed this bug by redirecting twice after adding a movie (*/add-movie -> /redirect -> /schedule*), for some reason this fixes the problem**.
 
 2. Another react-redux-firebase problem: When logging out, the firebase state stored locally would be removed for some reason (and then never update again). Again, this is a plugin problem that we have no control over. **We've made a temporary fix by just setting location.window.href = '/' after logging out. The user will still log out, it just forces a refresh now so that the data will actually load.**
 
