@@ -8,14 +8,12 @@ class AddComment extends Component {
   constructor(props) {
     super(props);
 
-    this.onSubmit = this.onSubmit.bind(this);
-    this.setTextareaRef = this.setTextareaRef.bind(this);
-    this.setFormRef = this.setFormRef.bind(this);
-    this.handleEnterKey = this.handleEnterKey.bind(this);
-
     this.state = {
       buttonValue: (<span className='typcn typcn-arrow-forward-outline' />)
     };
+
+    this.postComment = this.postComment.bind(this);
+    this.handleEnterKey = this.handleEnterKey.bind(this);
   }
 
   componentDidMount() {
@@ -23,41 +21,37 @@ class AddComment extends Component {
       this.textarea.focus();
   }
 
-  setFormRef(form) {
-    this.form = form;
-  }
-
-  setTextareaRef(textarea) {
-    this.textarea = textarea;
-  }
-
-  onSubmit(e) {
+  postComment(e) {
     if (e) e.preventDefault();
-    const { profile } = this.props;
+
+    const { profile, firebase, movieId, resizeTextarea } = this.props;
+
     const oldButtonValue = this.state.buttonValue;
     this.setState({ buttonValue: (<span className='loader loader--small' />) });
-    this.props.firebase.push('/comments', { 
+
+    firebase.push('/comments', { 
       author: profile.username,
       text: this.textarea.value,
       date: moment().format(),
-      movieid: this.props.movieID
+      movieid: movieId
     }).then(() => {
       this.setState({ buttonValue: oldButtonValue });
     });
+
     this.textarea.value = '';
-    this.props.resizeTextarea(this.textarea);
+    resizeTextarea(this.textarea);
   }
 
   handleEnterKey(e) {
     if (e.key !== 'Enter') return;
     if (e.ctrlKey || e.shiftKey) return;
-    this.onSubmit();
+    this.postComment();
     e.stopPropagation();
     e.preventDefault();
   }
 
   render() {
-    const { auth, yearWeek } = this.props;
+    const { auth, yearWeek, resizeTextarea } = this.props;
 
     let contents;
     if (!isLoaded(auth)) {
@@ -67,17 +61,13 @@ class AddComment extends Component {
         </div>
       );
     } else if (isEmpty(auth)) {
-      contents = (
-        <p className='add-comment-denial'>Log in to participate in the discussion.</p>
-      );
+      contents = (<p className='add-comment-denial'>Log in to participate in the discussion.</p>);
     } else if (yearWeek !== moment().format('YYYY-ww')) {
-      contents = (
-        <p className='add-comment-denial'>This discussion has been archived.</p>
-      );      
+      contents = (<p className='add-comment-denial'>This discussion has been archived.</p>);      
     } else {
       contents = (
-        <form className='add-comment' onSubmit={this.onSubmit} ref={this.setFormRef}>
-          <textarea className='add-comment__input' ref={this.setTextareaRef} placeholder='Leave a comment' rows='2' onKeyDown={this.handleEnterKey} onInput={() => this.props.resizeTextarea(this.textarea)} />
+        <form className='add-comment' onSubmit={this.postComment} ref={form => this.form = form}>
+          <textarea className='add-comment__input' ref={textarea => this.textarea = textarea} placeholder='Leave a comment' rows='2' onKeyDown={this.handleEnterKey} onInput={() => resizeTextarea(this.textarea)} />
           <button className='add-comment__submit' type='submit'>{this.state.buttonValue}</button>
         </form>
       );
@@ -92,10 +82,10 @@ class AddComment extends Component {
 }
 
 const wrappedAddComment = firebaseConnect()(AddComment);
+
 export default connect(
   ({ firebase }) => ({
     auth: pathToJS(firebase, 'auth'),
     profile: pathToJS(firebase, 'profile')
   })
 )(wrappedAddComment);
-

@@ -9,14 +9,12 @@ class Login extends Component{
     super(props);
 
     this.login = this.login.bind(this);
-    this.setEmailRef = this.setEmailRef.bind(this);
-    this.setPasswordRef = this.setPasswordRef.bind(this);
     this.logout = this.logout.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate() {
     // change the store to reflect that the initial loading of the profile is done
-    const { auth, profile, dispatchIsLoadingSidebar } = nextProps;
+    const { auth, profile, dispatchIsLoadingSidebar } = this.props;
     if (isLoaded(auth) && ((!isEmpty(auth) && isLoaded(profile)) || isEmpty(auth))) {
       dispatchIsLoadingSidebar(false);
     }
@@ -24,10 +22,10 @@ class Login extends Component{
 
   login(e) {
     e.preventDefault();
-    const { dispatchIsLoadingSidebar } = this.props;
+    const { dispatchIsLoadingSidebar, firebase } = this.props;
 
     dispatchIsLoadingSidebar(true);
-    this.props.firebase.login({
+    firebase.login({
       email: this.emailInput.value,
       password: this.passwordInput.value
     }).then(() => dispatchIsLoadingSidebar(false));
@@ -38,16 +36,9 @@ class Login extends Component{
   // see: https://github.com/prescottprue/react-redux-firebase/issues/93
   logout(e) {
     e.preventDefault();
-    this.props.firebase.logout();
-    window.location.href = '/';
-  }
-
-  setEmailRef(input) {
-    this.emailInput = input;
-  }
-
-  setPasswordRef(input) {
-    this.passwordInput = input;
+    this.props.firebase.logout().then(() => {
+      window.location.href = '/'
+    });
   }
 
   render(){
@@ -68,8 +59,8 @@ class Login extends Component{
         <div className='sidebar-menu'>
           <div className='sidebar-menu__heading'>Log in</div>
           <form className='login-form' onSubmit={this.login}>
-            <input className='login-form__email' type="text" placeholder="Email" ref={this.setEmailRef} />
-            <input className='login-form__password' type="password" placeholder="Password" ref={this.setPasswordRef} />
+            <input className='login-form__email' type="text" placeholder="Email" ref={input => this.emailInput = input} />
+            <input className='login-form__password' type="password" placeholder="Password" ref={input => this.passwordInput = input} />
             <button className='login-form__button' type="submit">Login</button>
           </form>
         </div>
@@ -123,6 +114,7 @@ class Login extends Component{
 }
 
 const wrappedLogin = firebaseConnect()(Login);
+
 export default connect(
   ({ firebase }) => ({
     auth: pathToJS(firebase, 'auth'),

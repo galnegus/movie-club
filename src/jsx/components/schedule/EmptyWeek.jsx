@@ -3,7 +3,7 @@ import moment from 'moment';
 import {Link} from 'react-router-dom';
 
 export default class EmptyWeek extends Component{
-  render(){
+  render() {
     return(
       <li className='schedule-list__item schedule-list__item--empty'>
         <div className='schedule-list__year-week'>

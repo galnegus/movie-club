@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route } from 'react-router-dom';
-import { Sidebar } from './sidebar.jsx';
-import Discussion from './discussion/discussion.jsx';
+import Sidebar from './sidebar/Sidebar.jsx';
+import Discussion from './discussion/Discussion.jsx';
 import Schedule from './schedule/Schedule.jsx';
-import { AddMovie } from './add-movie/AddMovie.jsx';
+import AddMovie from './add-movie/AddMovie.jsx';
 import LoadingOverlay from './LoadingOverlay.jsx';
 import Notifications from 'react-notification-system-redux';
-import notificationStyle from './notification-style';
+import notificationStyle from '../notification-style';
 
 class App extends Component {
   render() {

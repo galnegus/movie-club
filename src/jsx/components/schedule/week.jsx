@@ -35,15 +35,17 @@ class Week extends Component{
 	}
 
 	render(){
+		const { poster_path, year_week, title, release_date } = this.props;
+
 		let classModifier = '';
 		let isCurrentWeek = false;
-		const current_year_week = moment().format('YYYY-ww'); // YYYY = 1970 1971 ... 2029 2030, ww = 01 02 ... 52 53
-		const img_src = "http://image.tmdb.org/t/p/w92" + this.props.poster_path;
+		const currentYearWeek = moment().format('YYYY-ww'); // YYYY = 1970 1971 ... 2029 2030, ww = 01 02 ... 52 53
+		const posterSrc = "http://image.tmdb.org/t/p/w92" + poster_path;
 		
-		if (this.props.year_week === current_year_week) {
+		if (year_week === currentYearWeek) {
 			classModifier = 'schedule-list__item--current-week';
 			isCurrentWeek = true;
-		} else if (this.props.year_week < current_year_week) {
+		} else if (year_week < currentYearWeek) {
 			classModifier = 'schedule-list__item--faded';
 		}
 
@@ -51,22 +53,21 @@ class Week extends Component{
 			<li className={'schedule-list__item ' + classModifier}>
 				<div className='schedule-list__year-week'>
 					<div>
-						<span className='schedule-list__week'>{'Week ' + parseInt(this.props.year_week.substring(5))}</span>
+						<span className='schedule-list__week'>{'Week ' + parseInt(year_week.substring(5))}</span>
 						<br />
-						<span className='schedule-list__year'>{parseInt(this.props.year_week.substring(0,4)) }</span>
+						<span className='schedule-list__year'>{parseInt(year_week.substring(0,4)) }</span>
 					</div>
 				</div>
 				<div className='schedule-list__content'>
-					<img className='schedule-list__image' src={img_src} />
+					<img className='schedule-list__image' src={posterSrc} />
 					<div className='schedule-list__info'>
-						<strong>{this.props.title} ({this.props.release_date.substring(0,4)})</strong>
+						<strong>{title} ({release_date.substring(0,4)})</strong>
 					</div>
-					{this.props.year_week > current_year_week ? (
+					{year_week > currentYearWeek ? (
 						<a href='#' type='button' onClick={this.deleteMovie} className='schedule-list__delete-button'>
 							<span className='typcn typcn-delete' />
 						</a>
 					) : ''}
-					
 				</div>
 			</li>
 		);
@@ -79,4 +80,3 @@ export default connect(null, dispatch => ({
 	notify: options => dispatch(Notifications.info(options)),
 	notifyError: options => dispatch(Notifications.error(options))
 }))(wrappedWeek);
-

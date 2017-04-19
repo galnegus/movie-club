@@ -9,34 +9,41 @@ export default class MovieInfo extends Component {
   }
 
   render() {
-    const img_src = "http://image.tmdb.org/t/p/w92" + this.props.api_data.poster_path;
-    let directors=[], stars=[], genres=[];
-    const casts = this.props.api_data.credits.cast;
-    const crew = this.props.api_data.credits.crew;
-    const genre_list = this.props.api_data.genres;
-    if(crew) {
+    const { poster_path, credits, genres, release_date, runtime, title, overview } = this.props.api_data;
+    const { cast, crew } = credits;
+
+    const posterSrc = "http://image.tmdb.org/t/p/w92" + poster_path;
+
+    let directors=[], stars=[], genresList=[];
+    if (crew) {
       directors = crew.filter( d => d.job === "Director").map( d => d.name + ", ");
       directors[directors.length-1] =  directors[directors.length-1].slice(0, -2);
     }
-    if(casts && casts[0]) { stars.push(casts[0].name) };
-    if(casts && casts[1]) { stars.push(", "); stars.push(casts[1].name); }
-    if(genre_list) {
-      genres = genre_list.map( g => g.name + ", ");
-      genres[genres.length-1] =  genres[genres.length-1].slice(0, -2);
+    if (cast && cast[0]) stars.push(cast[0].name);
+    if (cast && cast[1]) {
+      stars.push(", ");
+      stars.push(cast[1].name); 
+    }
+    if (cast && cast[2]) {
+      stars.push(", ");
+      stars.push(cast[2].name); 
+    }
+    if (genres) {
+      genresList = genres.map( g => g.name + ", ");
+      genresList[genresList.length-1] =  genresList[genresList.length-1].slice(0, -2);
     }
 
-    // console.log("genres = ", genres)
     return (
       <div className='movie-info'>
         <div className='movie-info__poster-container'>
-          <img className='movie-info__poster' src={img_src} />
+          <img className='movie-info__poster' src={posterSrc} />
         </div>
         <div className='movie-info__content'>
-          <h3>{this.props.api_data.title} <small className='color-grey'>({this.datestring2year(this.props.api_data.release_date)})</small></h3>
-          <p><span className='color-grey'>{this.props.api_data.runtime} minutes</span> | <span className='color-grey'>{genres}</span></p>
-          <p><strong>Director(s):</strong> {directors} </p>
-          {stars.length>0 ? (<p><strong>Stars:</strong> {stars}</p>) : ""}
-          <p>{this.props.api_data.overview}</p>
+          <h3>{title} <small className='color-grey'>({this.datestring2year(release_date)})</small></h3>
+          <p><small><span className='color-grey'>{runtime} minutes</span> | <span className='color-grey'>{genresList}</span></small></p>
+          <p><small><strong>Director(s):</strong> {directors}</small></p>
+          {stars.length > 0 ? (<p><small><strong>Stars:</strong> {stars}</small></p>) : ''}
+          <p>{overview}</p>
         </div>
       </div>
     );

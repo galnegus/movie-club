@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Login from './sidebar/login.jsx';
-import Watched from './sidebar/watched.jsx';
+import Login from './Login.jsx';
+import Watched from './Watched.jsx';
 
-export class Sidebar extends Component {
+export default class Sidebar extends Component {
   render() {
   	return (
   	  <div className='sidebar'>

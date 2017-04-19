@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import MovieInfo from './MovieInfo.jsx';
-import Comments from './comments.jsx';
-import AddComment from './add-comment.jsx';
+import Comments from './Comments.jsx';
+import AddComment from './AddComment.jsx';
 import MovieHeader from './MovieHeader.jsx';
-import Comment from './comment.jsx';
+import Comment from './Comment.jsx';
 import { connect } from 'react-redux';
 import { firebaseConnect, pathToJS, isLoaded, isEmpty, dataToJS } from 'react-redux-firebase';
 import { isLoadingDiscussion } from '../../actions';
@@ -45,35 +45,31 @@ class Discussion extends Component {
 
 
   render() {
-    const { movies } = this.props;
-    const { comments } = this.props;
-    let movieID;
-    let movie;
-    let commentList;
+    const { movies, comments } = this.props;
 
-
-    if(!isLoaded(movies)){
-      return(
-        <div className='loader loader--medium' />
-      );
+    if (!isLoaded(movies)) {
+      return (<div className='loader loader--medium' />);
     }
 
-    if(!this.props.location.pathname.substring(1)){
-        const current_year_week = moment().format('YYYY-ww');
-        movieID = Object.keys(movies).find( key => movies[key].year_week === current_year_week);
-    }else{
-        movieID = Object.keys(movies).find( key => movies[key].year_week === this.props.location.pathname.substring(12));
+    let movieId;
+    if (!this.props.location.pathname.substring(1)) {
+      const currentYearWeek = moment().format('YYYY-ww');
+      movieId = Object.keys(movies).find(key => movies[key].year_week === currentYearWeek);
+    } else {
+      movieId = Object.keys(movies).find(key => movies[key].year_week === this.props.location.pathname.substring(12));
     }
     
-    Object.keys(movies).forEach( key => {
-        if (key === movieID){
-            movie = movies[key];
-        }
+    let movie;
+    Object.keys(movies).forEach(key => {
+      if (key === movieId){
+        movie = movies[key];
+      }
     });
 
-    if(!isLoaded(comments)){
+    let commentList;
+    if (!isLoaded(comments)) {
       commentList = (<div>Loading</div>);
-    } else if(isEmpty(comments)){
+    } else if (isEmpty(comments)) {
       commentList = (<div>There are no comments.</div>);
     } else {
       commentList = Object.keys(comments)
@@ -83,12 +79,11 @@ class Discussion extends Component {
           if (a.date > b.date) return 1;
           return 0;
         })
-        .filter(comment => comment.movieid === movieID)
+        .filter(comment => comment.movieid === movieId)
         .map(comment => (<Comment commentData={comment} key={comment.date} />));
     }
 
     const nComments = commentList.length;
-
     if (nComments === 0)
       commentList = (<div>There are no comments.</div>);
 
@@ -102,21 +97,19 @@ class Discussion extends Component {
             <Comments commentList={commentList}  storeCommentsDiv={this.storeCommentsDiv} />
           </div>
         </div>
-        <AddComment movieID={movieID} yearWeek={movie.year_week} resizeTextarea={this.resizeTextarea} />
+        <AddComment movieId={movieId} yearWeek={movie.year_week} resizeTextarea={this.resizeTextarea} />
       </div>
     );
   }
 }
 
-const wrappeddiscussion = firebaseConnect([
+const wrappedDiscussion = firebaseConnect([
   '/movies', '/comments#orderByValue' 
 ])(Discussion);
+
 export default connect(({ firebase }) => ({
   movies: dataToJS(firebase, 'movies'),
   comments: dataToJS(firebase, 'comments'),
 }), dispatch => ({
-    dispatchIsLoadingDiscussion: (value) => dispatch(isLoadingDiscussion(value))
-  })
-)(wrappeddiscussion);
-
-
+  dispatchIsLoadingDiscussion: (value) => dispatch(isLoadingDiscussion(value))
+}))(wrappedDiscussion);

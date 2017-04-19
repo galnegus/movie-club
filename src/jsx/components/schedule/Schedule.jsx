@@ -6,54 +6,55 @@ import EmptyWeek from './EmptyWeek.jsx';
 import moment from 'moment';
 
 class Schedule extends Component{
-	render(){
-			const current_year_week = moment().format('YYYY-ww')
+	render() {
+    const { movies } = this.props;
+		const currentYearWeek = moment().format('YYYY-ww')
 
-	    const { movies } = this.props;
-	    var movieArray = [];
+    const futureYearWeeks = new Set();
+    for (let i = 4; i >= 0; i--)
+    	futureYearWeeks.add(moment().add(i, 'w').format('YYYY-ww'));
 
-	    const futureYearWeeks = new Set();
-	    for (let i = 4; i >= 0; i--)
-	    	futureYearWeeks.add(moment().add(i, 'w').format('YYYY-ww'));
+    let movieList = [];
+    let res = [];
+    if (isLoaded(movies)) {
+    	// put movie data from firebase into movieList and sort it after week
+    	movieList = Object.keys(movies)
+			.map( key => {
+        const movie = movies[key];
+        movie.firebaseId = key;
+        return movie;
+      })
+			.sort((b,a) => {
+			 	if(a.year_week > b.year_week) return 1;
+			 	if(a.year_week < b.year_week) return -1;
+		 		return 0;
+			});
 
-	    let res = [];
+			// add current/future movies/empty weeks to res array
+    	for (let yearWeek of futureYearWeeks.values()) {
+				const movie = movieList.find(movie => movie.year_week === yearWeek);
+				if (movie) {
+					res.push((<Week {...movie.api_data} key={movie.year_week} year_week={movie.year_week} firebaseId={movie.firebaseId} />));
+				} else {
+					res.push((<EmptyWeek key={yearWeek} year_week={yearWeek} />));
+				}
+			};
 
-	    if(isLoaded(movies)){
-	    	// put movie data from firebase into movieArray and sort it after week
-	    	movieArray = Object.keys(movies)
-  			.map( key => {
-          const movie = movies[key];
-          movie.firebaseId = key;
-          return movie;
-        })
-  			.sort((b,a) => {
-  			 	if(a.year_week > b.year_week) return 1;
-  			 	if(a.year_week < b.year_week) return -1;
-			 		return 0;
-  			});
+			// add past movies to res array
+			movieList.forEach(movie => {
+				if (movie.year_week < currentYearWeek) {
+					res.push((<Week {...movie.api_data} key={movie.year_week} year_week={movie.year_week} firebaseId={movie.firebaseId} />));
+				};
+			});
+    }
 
-  			// add current/future movies/empty weeks to res array
-	    	for (let yearWeek of futureYearWeeks.values()) {
-  				const movie = movieArray.find(movie => movie.year_week === yearWeek);
-  				if (movie) {
-  					res.push((<Week {...movie.api_data} key={movie.year_week} year_week={movie.year_week} firebaseId={movie.firebaseId} />));
-  				} else {
-  					res.push((<EmptyWeek key={yearWeek} year_week={yearWeek} />));
-  				}
-  			};
-
-  			// add past movies to res array
-  			movieArray.forEach(movie => {
-					if (movie.year_week < current_year_week) {
-  					res.push((<Week {...movie.api_data} key={movie.year_week} year_week={movie.year_week} firebaseId={movie.firebaseId} />));
-  				};
-  			});
-	    }
-		return(
+		return (
       <div>
         <div className='schedule-header'>
-          <h2>Schedule</h2>
-          <p>Select movies for up to 4 weeks ahead!</p>
+          <div className='schedule-header__content'>
+            <h2>Schedule</h2>
+            <p>Select movies for up to 4 weeks ahead!</p>
+          </div>
         </div>
   			<ul className='schedule-list'>
   				{res}
@@ -63,10 +64,10 @@ class Schedule extends Component{
 	}
 }
 
-
 const wrappedSchedule = firebaseConnect([
-  { path: '/movies', queryParams: [ 'orderByChild=year_week' ] }
+  '/movies'
 ])(Schedule);
+
 export default connect(({ firebase }) => ({
   movies: dataToJS(firebase, 'movies'),
 }))(wrappedSchedule);

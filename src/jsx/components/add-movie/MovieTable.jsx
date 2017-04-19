@@ -7,30 +7,28 @@ import { connect } from 'react-redux';
 class MovieTable extends Component{
   constructor(props) {
     super(props);
-    this.getAddedMoviesID = this.getAddedMoviesID.bind(this);
   }
 
-  getAddedMoviesID(){
-    const { movies } = this.props;
-    if(isLoaded(movies)){
-      return Object.keys(movies).map( key => movies[key].api_data.id);
-    }
-  }
+  render() {
+    const { movies, searchResults, yearWeek } = this.props;
 
-  render(){
-    const addedMoviesID = this.getAddedMoviesID();
-    let rows = [];
-    if(this.props.searchResults){
-      if(this.props.searchResults.length == 0){
+    let addedMovieIds = [];
+    if (isLoaded(movies))
+      addedMovieIds = Object.keys(movies).map(key => movies[key].api_data.id);
+
+    let rows;
+    if (searchResults) {
+      if (searchResults.length === 0) {
         rows = 'No movie was found'
-      } else {      
-        this.props.searchResults.forEach( movie => {
-          rows.push( <MovieRow {...movie} key={movie.id} addedMoviesID={addedMoviesID} yearWeek={this.props.yearWeek} />)
+      } else { 
+        rows = searchResults.map(movie => {
+          const alreadyAdded = addedMovieIds.indexOf(movie.id) !== -1;
+          return <MovieRow {...movie} key={movie.id} alreadyAdded={alreadyAdded} yearWeek={yearWeek} />;
         });
       }
     }
 
-  	return(
+  	return (
   	  <ul className='add-movie-results'>
         {rows}
   	  </ul>
@@ -39,8 +37,9 @@ class MovieTable extends Component{
 }
 
 const wrappedMovieTable = firebaseConnect([
-  { path: '/movies', queryParams: [ 'orderByChild=year_week' ] }
+  '/movies'
 ])(MovieTable);
+
 export default connect(({ firebase }) => ({
   movies: dataToJS(firebase, 'movies'),
 }))(wrappedMovieTable);

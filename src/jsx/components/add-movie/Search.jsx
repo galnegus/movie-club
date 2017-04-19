@@ -5,18 +5,15 @@ import axios from 'axios';
 export default class Search extends Component{
   constructor() {
     super();
-    this.state = {
-       searchResults: {}
-    };
 
-    this.onSubmit=this.onSubmit.bind(this);
+    this.search = this.search.bind(this);
   }
 
   componentDidMount() {
     this.inputRef.focus();
   }
 
-  onSubmit(e) {
+  search(e) {
     e.preventDefault();
     const promise = axios({
       method: 'get',
@@ -32,9 +29,11 @@ export default class Search extends Component{
 
   render(){
   	return(
-      <form className='add-movie-search' onSubmit={this.onSubmit}>
+      <form className='add-movie-search' onSubmit={this.search}>
   		  <input className='add-movie-search__input' ref={(inputRef) => this.inputRef = inputRef} type='text' placeholder='Search for a movie' />
-        <button className='add-movie-search__button' type='submit'><span className='typcn typcn-zoom' /></button>
+        <button className='add-movie-search__button' type='submit'>
+          <span className='typcn typcn-zoom' />
+        </button>
       </form>
   	);
   }
