@@ -16,7 +16,7 @@ const config = {
   enableLogging: false, // enable/disable Firebase's database logging
 }
 
-// Add redux Firebase to compose
+// Add redux Firebase with compose
 const createStoreWithFirebase = compose(
   reactReduxFirebase(firebaseConfig, config)
 )(createStore)

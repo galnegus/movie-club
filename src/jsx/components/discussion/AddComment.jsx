@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { firebaseConnect, pathToJS, isLoaded, isEmpty } from 'react-redux-firebase';
 import moment from 'moment';
-import { isLoadingAddComment } from '../../actions';
 
 class AddComment extends Component {
   constructor(props) {

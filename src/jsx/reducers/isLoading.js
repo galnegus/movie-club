@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux';
-import { IS_LOADING_SIDEBAR, IS_LOADING_DISCUSSION, IS_LOADING_ADD_COMMENT } from '../constants';
+import { IS_LOADING_SIDEBAR, IS_LOADING_DISCUSSION } from '../constants';
 
 const initialState = {
   sidebar: true,
   discussion: true,
-  addComments: true
 }
 
 const sidebar = (state = true, action) => {
@@ -19,16 +18,9 @@ const discussion = (state = true, action) => {
   return state;
 }
 
-const addComment = (state = true, action) => {
-  if (action.type === IS_LOADING_ADD_COMMENT)
-    return action.value;
-  return state;
-}
-
 const isLoading = combineReducers({
   sidebar,
-  discussion,
-  addComment
+  discussion
 });
 
 export default isLoading;
