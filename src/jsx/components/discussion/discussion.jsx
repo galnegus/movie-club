@@ -52,12 +52,14 @@ class Discussion extends Component {
     }
 
     let movieId;
+    const currentYearWeek = moment().format('YYYY-ww');
     if (!this.props.location.pathname.substring(1)) {
-      const currentYearWeek = moment().format('YYYY-ww');
       movieId = Object.keys(movies).find(key => movies[key].year_week === currentYearWeek);
     } else {
       movieId = Object.keys(movies).find(key => movies[key].year_week === this.props.location.pathname.substring(12));
     }
+
+
     
     let movie;
     Object.keys(movies).forEach(key => {
@@ -65,6 +67,22 @@ class Discussion extends Component {
         movie = movies[key];
       }
     });
+
+    // fallback if there's no movie this week, show the last one
+    if (typeof movie === 'undefined') {
+      const sortedMovies = Object.keys(movies)
+        .map(key => movies[key])
+        .sort((a, b) => {
+          if (a.year_week < b.year_week) return 1;
+          if (a.year_week > b.year_week) return -1;
+          return 0;
+        })
+        .filter(movie => movie.year_week < currentYearWeek);
+        console.dir(sortedMovies);
+        movie = sortedMovies[0];
+    }
+
+
 
     let commentList;
     if (!isLoaded(comments)) {
